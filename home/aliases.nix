@@ -4,7 +4,7 @@
     upd = "sudo nix flake update --flake ~/nix";
     rb = "nh os switch ~/nix";
     mkhome = "nh home switch ~/nix";
-    gc = "nix-collect-garbage --delete-older-than 14d -d && notify-send 'Nix Garbage Collector' 'Finished cleaning up old generations.'";
+    gc = "nh clean all";
 
     # eza and zoxide
     ls = "eza";

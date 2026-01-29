@@ -10,6 +10,7 @@ Personal NixOS configuration using flakes and home-manager for reproducible syst
 ├── home/               # Home-manager configurations
 │   ├── home.nix       # User environment setup
 │   ├── programs.nix   # Application packages
+│   ├── configs/       # Dotfiles (get symlinked)
 │   └── programs/      # Program-specific configs
 └── system/            # System-level configurations
     ├── core-config.nix      # Base system settings
@@ -33,7 +34,6 @@ Personal NixOS configuration using flakes and home-manager for reproducible syst
 
 ### Development Tools
 - neovim (with LazyVim)
-- git with custom configuration
 - direnv for project environments
 - various language servers and formatters
 
@@ -42,12 +42,12 @@ Personal NixOS configuration using flakes and home-manager for reproducible syst
 - udiskie (automatic disk mounting)
 
 ### Applications
-Desktop applications including Firefox, Discord, OBS Studio, VSCode, KiCad, GIMP, and various creative tools (Kdenlive, Mixxx, Orca Slicer).
+Desktop applications that I use on a daily basis
 
 ## Hosts
 
-- **garnix**: Desktop system (Gigabyte hardware)
-- **girlfriend-3**: Laptop system (ThinkPad T14 AMD Gen 2)
+- **garnix**: Old laptop (Gigabyte G5 gaming laptop)
+- **girlfriend-3**: Laptop system (ThinkPad T14 AMD Gen 2) (If you are wondering about the name, it is the only warm thing in my lap)
 
 ## System Features
 
@@ -63,16 +63,15 @@ Desktop applications including Firefox, Discord, OBS Studio, VSCode, KiCad, GIMP
 Build and switch to configuration:
 ```bash
 sudo nixos-rebuild switch --flake .#<hostname>
+## or simply
+rb
 ```
 
 Update flake inputs:
 ```bash
 nix flake update
-```
-
-Using nh (helper tool):
-```bash
-nh os switch
+## or simply
+upd
 ```
 
 ## Disclaimer
