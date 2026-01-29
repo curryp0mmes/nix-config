@@ -1,0 +1,7 @@
+[default]
+duration = "30m"
+mode = "fit"
+sorting = "random"
+
+[any]
+path = "/home/simon/Pictures/Wallpapers"
