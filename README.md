@@ -23,7 +23,7 @@ Personal NixOS configuration using flakes and home-manager for reproducible syst
 ### Window Manager
 - niri (scrolling window manager)
 - waybar (status bar)
-- rofi (application launcher)
+- walker (application launcher)
 - mako (notification daemon)
 
 ### Terminal Environment

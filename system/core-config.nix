@@ -11,15 +11,19 @@
       trusted-users = [ "root" "simon" ];
     };
 
-  	gc = {  # Nix Garbage Collector
-  		automatic = true;
-  		dates = "weekly";
-  		options = "--delete-older-than 14d";
-  	};
+  	# gc = {  # Nix Garbage Collector
+  	# 	automatic = true;
+  	# 	dates = "weekly";
+  	# 	options = "--delete-older-than 14d";
+  	# };
   };
 
   nixpkgs.config.allowUnfree = true;
-  programs.nh.enable = true;
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 14d --keep 3";
+  };
 
   # Enable networking
   networking.networkmanager = {
@@ -88,7 +92,6 @@
     mako
     systemd
     openconnect
-    inputs.openconnect-sso
   ];
 
   #important upgrade

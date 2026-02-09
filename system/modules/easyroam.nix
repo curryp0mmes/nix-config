@@ -1,7 +1,7 @@
 {
   services.easyroam = {
       enable = true;
-      pkcsFile = "/home/simon/.config/easyroam/eduroam.p12"; # or e.g. config.sops.secrets.easyroam.path
+      pkcsFile = "/home/simon/.config/easyroam/antoherlinux.p12"; # or e.g. config.sops.secrets.easyroam.path
       # automatically configure wpa-supplicant (use this if you configure your networking via networking.wireless)
       wpa-supplicant = {
           enable = false;

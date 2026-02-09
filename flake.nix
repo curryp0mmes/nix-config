@@ -14,7 +14,7 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    nix-easyroam.url = "github:0x5a4/nix-easyroam";
+    nix-easyroam.url = "github:0x5a4/nix-easyroam/592540d50149d5ccc2e2ff5105d141ed710dad57";
 
     affinity-nix.url = "github:mrshmllow/affinity-nix";
 
@@ -43,13 +43,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    openconnect-sso = {
-      url = "github:vlaci/openconnect-sso";
+    elephant = {
+      url = "github:abenz1267/elephant";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    novalpdrv = {
-      url = "github:curryp0mmes/novation-launchpad-driver";
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

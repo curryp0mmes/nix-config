@@ -8,6 +8,7 @@ in
     ./programs/shell.nix # Manages Zsh, Kitty, starship and zoxide
     ./aliases.nix # Shell aliases
     ./programs.nix # Home Manager packages
+    inputs.walker.homeManagerModules.default
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -96,6 +97,21 @@ in
   #   };
   # };
 
+  programs.walker = {
+    enable = true;
+    runAsService = true;
+
+    config = {
+      theme = "simonswalk";
+      placeholders."default" = { input = "Search"; list = "Example"; };
+      providers.prefixes = [
+        {provider = "websearch"; prefix = "+";}
+        {provider = "providerlist"; prefix = "_";}
+      ];
+      keybinds.quick_activate = ["F1" "F2" "F3"];
+    };
+  };
+
   home.file = {
     # ".config" = {
     #   source = ./configs;
@@ -117,12 +133,8 @@ in
       source = createSymlink "nvim";
       recursive = true;
     };
-    ".config/rofi" = {
-      source = createSymlink "rofi";
-      recursive = true;
-    };
-    ".config/wallust" = {
-      source = createSymlink "wallust";
+    ".config/walker/themes" = {
+      source = createSymlink "walker/themes";
       recursive = true;
     };
     ".config/waybar" = {

@@ -23,7 +23,7 @@ binds {
     Mod+C hotkey-overlay-title="Open kiCad" { spawn "kicad"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
-    Mod+Space hotkey-overlay-title="Rofi" { spawn-sh "pkill rofi || rofi -show drun -replace -i"; }
+    Mod+Space hotkey-overlay-title="Walker" { spawn-sh "nc -U /run/user/1000/walker/walker.sock"; }
     Super+Escape hotkey-overlay-title="Lock Screen" { spawn-sh "hyprlock || niri msg action quit"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
@@ -360,7 +360,7 @@ cursor {
     xcursor-theme "breeze_cursors"
     xcursor-size 48
 
-    hide-when-typing
+    //hide-when-typing
     hide-after-inactive-ms 5000
 }
 
@@ -536,7 +536,7 @@ layout {
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
-    // skip-at-startup
+    skip-at-startup
 }
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.

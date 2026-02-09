@@ -70,6 +70,7 @@
       enable = true;
       defaultApplications = {
         "application/pdf" = "firefox.desktop";
+        "application/html" = "firefox.desktop";
       };
   };
   environment.variables.TERMFILECHOOSER = "/etc/yazi-file-chooser.sh";

@@ -6,7 +6,6 @@
     # Desktop manager
     wpaperd
     # Base OS stuff
-    rofi-unwrapped
     brightnessctl
     libnotify # for notify-send
     networkmanagerapplet
@@ -20,8 +19,6 @@
     vital
     zrythm
     jellyfin-media-player
-
-    wallust # wallpaper stuff
 
     python313
     python313Packages.pip
@@ -50,14 +47,15 @@
     zlib
     # general programs
     orca-slicer
-    kdePackages.kdenlive
+    # kdePackages.kdenlive
     discord
     mpv
-    pavucontrol
     kicad
+    wiremix
+    bluetuith
     kdePackages.okular
     gimp3-with-plugins
-    inputs.affinity-nix.packages.${pkgs.system}.v3
+    inputs.affinity-nix.packages.${pkgs.stdenv.hostPlatform.system}.v3
     vlc
     vscode
     code-cursor
