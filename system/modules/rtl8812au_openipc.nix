@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     owner = "svpcom";
     repo = "rtl8812au";
     rev = "v5.2.20"; # or pin to latest commit
-    sha256 = "sha256-yuZI5zd8+vVEHCyiLk23fgyUiTBi9rE+++NqASyVCsk=";
+    sha256 = "sha256-IpB2y2ZvjDfP4bmooaTZEqgmxMAB7T8RswUyVzJH+EU=";
   };
 
   nativeBuildInputs = [

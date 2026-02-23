@@ -54,7 +54,7 @@ Desktop applications that I use on a daily basis
 - Flake-based configuration with locked dependencies
 - Home-manager integration for user environment
 - Stylix for consistent theming
-- TLP power management for laptops
+- Tuned power management for laptops
 - Pipewire audio with JACK support
 - Automatic garbage collection (14-day retention)
 

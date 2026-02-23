@@ -8,7 +8,9 @@ in
     ./programs/shell.nix # Manages Zsh, Kitty, starship and zoxide
     ./aliases.nix # Shell aliases
     ./programs.nix # Home Manager packages
-    inputs.walker.homeManagerModules.default
+    inputs.noctalia.homeModules.default
+    ./programs/noctalia.nix
+    ./programs/freecad.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -34,6 +36,23 @@ in
       };
     };
   };
+
+  # Call noctalia lock on lid close 
+  services.swayidle = {
+    enable = true;
+    systemdTarget = "niri-session.target"; # Ensures it starts only when Niri is active
+    events = [
+      {
+        event = "before-sleep";
+        command = "noctalia-shell ipc call lockScreen lock";
+      }
+      {
+        event = "lock";
+        command = "noctalia-shell ipc call lockScreen lock";
+      }
+    ];
+  };
+
 
   # automatic disk mounting
   services.udiskie = {
@@ -97,21 +116,6 @@ in
   #   };
   # };
 
-  programs.walker = {
-    enable = true;
-    runAsService = true;
-
-    config = {
-      theme = "simonswalk";
-      placeholders."default" = { input = "Search"; list = "Example"; };
-      providers.prefixes = [
-        {provider = "websearch"; prefix = "+";}
-        {provider = "providerlist"; prefix = "_";}
-      ];
-      keybinds.quick_activate = ["F1" "F2" "F3"];
-    };
-  };
-
   home.file = {
     # ".config" = {
     #   source = ./configs;
@@ -131,10 +135,6 @@ in
     };
     ".config/nvim" = {
       source = createSymlink "nvim";
-      recursive = true;
-    };
-    ".config/walker/themes" = {
-      source = createSymlink "walker/themes";
       recursive = true;
     };
     ".config/waybar" = {

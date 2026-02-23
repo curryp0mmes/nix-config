@@ -2,18 +2,22 @@
   networking.firewall.checkReversePath = false;
   # aditionall firewall settings
   networking.firewall = {
-     allowedTCPPorts = [ 
+    allowedTCPPorts = [ 
+      5201
       4222
       8080
       1935
       1985
       8554
       8889
-     ]; # for NATS server
-     allowedUDPPorts = [
-       5600
-       10080
-        8889
+      9222
+    ]; # for NATS server
+    allowedUDPPorts = [
+      5201
+      5600
+      10080
+      8889
+      9222
     #   14550
     #   5001
     #   67

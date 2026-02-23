@@ -19,6 +19,7 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
   programs.nh = {
     enable = true;
     clean.enable = true;
@@ -30,6 +31,7 @@
     enable = true;
 
     unmanaged = [ "interface-name:wlp0s20f0u*" "interface-name:wlp8s0f3u*" ];
+    plugins = [ pkgs.networkmanager-openconnect ];
   };
   networking.firewall.enable = true;
 
@@ -72,6 +74,7 @@
       "dialout"
       "audio"
       "docker"
+      "battery_ctl"
     ];
   };
   # users.mutableUsers = false;

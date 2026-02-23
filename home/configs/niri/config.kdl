@@ -1,7 +1,9 @@
 // "/-" comments out the following node.
 // https://yalter.github.io/niri/Configuration:-Introduction
 
-spawn-sh-at-startup "wpaperd -d"
+// spawn-sh-at-startup "wpaperd -d"
+spawn-sh-at-startup "noctalia-shell"
+
 binds {
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program
@@ -23,8 +25,8 @@ binds {
     Mod+C hotkey-overlay-title="Open kiCad" { spawn "kicad"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
-    Mod+Space hotkey-overlay-title="Walker" { spawn-sh "nc -U /run/user/1000/walker/walker.sock"; }
-    Super+Escape hotkey-overlay-title="Lock Screen" { spawn-sh "hyprlock || niri msg action quit"; }
+    Mod+Space hotkey-overlay-title="Launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
+    Super+Escape hotkey-overlay-title="Lock Screen" { spawn-sh "noctalia-shell ipc call lockScreen lock || niri msg action quit"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // Using spawn-sh allows to pass multiple arguments together with the command.
@@ -301,6 +303,12 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
+gestures {
+    hot-corners {
+        off
+    }
+}
+
 // You can configure outputs by their name, which you can find
 // by running `niri msg outputs` while inside a niri instance.
 output "eDP-1" {
@@ -314,7 +322,7 @@ output "eDP-1" {
     transform "normal"
 
     // Position of the output in the global coordinate space.
-    // This affects directional monitor actions like "focus-monitor-left", and cursor movement.
+    // This affects directional monitor actions like "focus-monitor-left", and cursor movement.    // The cursor can only move between directly adjacent outputs.
     // The cursor can only move between directly adjacent outputs.
     // Output scale and rotation has to be taken into account for positioning:
     // outputs are sized in logical, or scaled, pixels.
@@ -322,7 +330,7 @@ output "eDP-1" {
     // so to put another output directly adjacent to it on the right, set its x to 1920.
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=1920 y=0
+    position x=0 y=0
 }
 output "HDMI-A-1" {
   //mode "1920x1080@60"
@@ -343,7 +351,24 @@ output "HDMI-A-1" {
     // so to put another output directly adjacent to it on the right, set its x to 1920.
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=0 y=0
+    position x=-1920 y=0
+}
+
+//home monitor 1
+output "Lenovo Group Limited T27QD-40 VNACF486" {
+  mode "2560x1440@119.998"
+  position x=-960 y=-1080
+  scale 1.33333333333 //logical size of 1920x1080
+
+  transform "normal"
+}
+//home monitor 2
+output "PNP(AOC) 27G2WG3- QPWM5HA000416" {
+  mode "1920x1080@165.003"
+  position x=-2880 y=-1080
+  scale 1
+
+  transform "normal"
 }
 environment {
   QT_QPA_PLATFORM "wayland"
@@ -631,4 +656,7 @@ window-rule {
     clip-to-geometry true
 }
 
-
+debug {
+  // Allows notification actions and window activation from Noctalia.
+  honor-xdg-activation-with-invalid-serial
+}

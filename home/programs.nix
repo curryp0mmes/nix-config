@@ -1,4 +1,10 @@
 { pkgs, inputs, ... }:
+let
+  stablePkgs = import inputs.nixpkgs_stable {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+  };
+in
 {
   home.packages = with pkgs; [
     nix-output-monitor # for 'nh'
@@ -40,6 +46,7 @@
     fzf
     nodejs_24
     ffmpeg_7-full
+    freecad-dev
 
     #libraries
     python313Packages.libxml2
@@ -65,6 +72,7 @@
     betaflight-configurator
     rpi-imager
     telegram-desktop
+    stablePkgs."saleae-logic-2"
 
     (texlive.withPackages (ps: with ps; [
       scheme-gust darkmode latexmk eurosym makecell csquotes titlesec xstring

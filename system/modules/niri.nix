@@ -29,11 +29,11 @@
 '';
 
   # Enable Hyprlock
-  programs.hyprlock.enable = true;
-  security.pam.services.hyprlock = { };
- 
+  #programs.hyprlock.enable = true;
+  #security.pam.services.hyprlock = { };
+
   # Enable waybar
-  programs.waybar.enable = true;
+  # programs.waybar.enable = true;
 
   services.dbus.enable = true;
  

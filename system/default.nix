@@ -13,7 +13,9 @@
     # inherit (import "${self}/system") desktop laptop;
 
     # get these into the module system
-    specialArgs = {inherit inputs self;};
+    specialArgs = {
+      inherit inputs self;
+    };
   in {
     garnix = nixosSystem {
         inherit specialArgs;

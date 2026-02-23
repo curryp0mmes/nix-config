@@ -3,6 +3,7 @@
   inputs,
   ...
 }: let
+  system = "x86_64-linux";
   extraSpecialArgs = {inherit inputs self;};
 
   homeImports = {
@@ -13,7 +14,10 @@
 
   inherit (inputs.home-manager.lib) homeManagerConfiguration;
 
-  pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+  pkgs = import inputs.nixpkgs {
+    inherit system;
+    config.allowUnfree = true;
+  };
 in {
   # get these into the module system
   _module.args = {inherit homeImports;};
