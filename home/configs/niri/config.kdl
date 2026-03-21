@@ -364,7 +364,8 @@ output "Lenovo Group Limited T27QD-40 VNACF486" {
 }
 //home monitor 2
 output "PNP(AOC) 27G2WG3- QPWM5HA000416" {
-  mode "1920x1080@165.003"
+  mode "1920x1080@60.000"
+  //mode "1920x1080@165.003"
   position x=-2880 y=-1080
   scale 1
 

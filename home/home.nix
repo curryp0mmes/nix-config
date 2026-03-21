@@ -10,7 +10,6 @@ in
     ./programs.nix # Home Manager packages
     inputs.noctalia.homeModules.default
     ./programs/noctalia.nix
-    ./programs/freecad.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -22,9 +21,12 @@ in
 
   programs.git = {
     enable = true;
-    settings.user = {
-      email = "simonausbs@gmail.com";
-      name = "Simon";
+    settings = {
+      user = {
+        email = "simonausbs@gmail.com";
+        name = "Simon";
+      };
+      pull.rebase = true;
     };
   };
 

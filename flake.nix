@@ -48,10 +48,5 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    freecad-src = {
-      url = "git+https://github.com/FreeCAD/FreeCAD.git?submodules=1";
-      flake = false;
-    };
   };
 }

@@ -32,13 +32,16 @@ stdenv.mkDerivation rec {
     substituteInPlace ./Makefile \
       --replace /lib/modules/ "${kernel.dev}/lib/modules/" \
       --replace /sbin/depmod \# \
-      --replace '$(MODDESTDIR)' "$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"
+      --replace '$(MODDESTDIR)' "$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/" \
+      --replace ' O="$(KBUILD_OUTPUT)"' ""
 
     
     echo 'EXTRA_CFLAGS += -I$(PWD)' >> Makefile
   '';
 
   makeFlags = [
+    "KVER=${kernel.modDirVersion}"
+    "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     "ARCH=${stdenv.hostPlatform.linuxArch}"
     ("CONFIG_PLATFORM_I386_PC=" + (if stdenv.hostPlatform.isx86 then "y" else "n"))
     ("CONFIG_PLATFORM_ARM_RPI=" + (if stdenv.hostPlatform.isAarch then "y" else "n"))

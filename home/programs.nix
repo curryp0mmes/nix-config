@@ -46,7 +46,7 @@ in
     fzf
     nodejs_24
     ffmpeg_7-full
-    freecad-dev
+    freecad 
 
     #libraries
     python313Packages.libxml2
@@ -65,7 +65,7 @@ in
     inputs.affinity-nix.packages.${pkgs.stdenv.hostPlatform.system}.v3
     vlc
     vscode
-    code-cursor
+    zed-editor
     onlyoffice-desktopeditors
     obsidian
     mixxx

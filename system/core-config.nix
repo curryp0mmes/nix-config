@@ -30,7 +30,7 @@
   networking.networkmanager = {
     enable = true;
 
-    unmanaged = [ "interface-name:wlp0s20f0u*" "interface-name:wlp8s0f3u*" ];
+    unmanaged = [ "interface-name:wlp0s20f0u*" "interface-name:wlp8s0f3u*" "interface-name:wlp8s0f4u*" ];
     plugins = [ pkgs.networkmanager-openconnect ];
   };
   networking.firewall.enable = true;
@@ -97,6 +97,8 @@
     openconnect
   ];
 
+  services.flatpak.enable = true;
+  
   #important upgrade
   security.sudo.enable = false;
   security.sudo-rs = {
