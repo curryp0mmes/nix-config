@@ -47,6 +47,7 @@ in
     nodejs_24
     ffmpeg_7-full
     freecad 
+    gqrx
 
     #libraries
     python313Packages.libxml2

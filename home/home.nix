@@ -8,6 +8,7 @@ in
     ./programs/shell.nix # Manages Zsh, Kitty, starship and zoxide
     ./aliases.nix # Shell aliases
     ./programs.nix # Home Manager packages
+    ./programs/nixvim.nix
     inputs.noctalia.homeModules.default
     ./programs/noctalia.nix
   ];
@@ -43,16 +44,10 @@ in
   services.swayidle = {
     enable = true;
     systemdTarget = "niri-session.target"; # Ensures it starts only when Niri is active
-    events = [
-      {
-        event = "before-sleep";
-        command = "noctalia-shell ipc call lockScreen lock";
-      }
-      {
-        event = "lock";
-        command = "noctalia-shell ipc call lockScreen lock";
-      }
-    ];
+    events = {
+      "before-sleep" = "noctalia-shell ipc call lockScreen lock";
+      "lock" = "noctalia-shell ipc call lockScreen lock";
+    };
   };
 
 
@@ -80,37 +75,12 @@ in
     ];
   };
 
-  programs.neovim = {
-    enable = true;
-    vimAlias = true;
-    viAlias = true;
-    extraPackages = with pkgs;
-      [
-        pyright
-        basedpyright
-        lua-language-server
-        stylua
-        ripgrep
-        beancount-language-server
-        gopls
-        go
-        nil
-        nodePackages.vscode-langservers-extracted
-        nodePackages.yaml-language-server
-        marksman
-        ruff
-        lua51Packages.tiktoken_core
-        gnumake
-        python3Packages.jedi-language-server
-      ];
-    plugins = [ pkgs.vimPlugins.nvim-treesitter.withAllGrammars ];
-  };
-  # Prevent styling since i am using lazyvim
-  stylix.targets.neovim.enable = false;
+  stylix.targets.neovim.enable = true;
   stylix.targets.firefox = {
     profileNames = [ "simon" ];
     enable = true;
   };
+  gtk.gtk4.theme = config.gtk.theme;
   # xdg.mimeApps = {
   #   enable = true;
   #   defaultApplications = {
@@ -133,10 +103,6 @@ in
     };
     ".config/niri" = {
       source = createSymlink "niri";
-      recursive = true;
-    };
-    ".config/nvim" = {
-      source = createSymlink "nvim";
       recursive = true;
     };
     ".config/waybar" = {

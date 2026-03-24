@@ -1,9 +1,9 @@
 { pkgs, ... }:
 {
   home.shellAliases = {
-    upd = "sudo nix flake update --flake ~/nix";
-    rb = "nh os switch ~/nix";
-    mkhome = "nh home switch ~/nix";
+    upd = "sudo nix flake update --flake path:$HOME/nix";
+    rb = "nh os switch path:$HOME/nix";
+    mkhome = "nh home switch path:$HOME/nix";
     gc = "nh clean all";
 
     # eza and zoxide

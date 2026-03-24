@@ -17,6 +17,8 @@
       inherit inputs self;
     };
   in {
+              useGlobalPkgs = true;
+              useUserPackages = true;
     garnix = nixosSystem {
         inherit specialArgs;
         modules = [
@@ -30,8 +32,12 @@
 
           {
             home-manager = {
-              users.simon.imports = homeImports."simon";
+              users.simon.imports = homeImports."simon" ++ [
+                inputs.nixvim.homeModules.nixvim
+              ];
               extraSpecialArgs = specialArgs;
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
             };
           }
         ];
@@ -51,7 +57,9 @@
 
           {
             home-manager = {
-              users.simon.imports = homeImports."simon";
+              users.simon.imports = homeImports."simon" ++ [
+                inputs.nixvim.homeModules.nixvim
+              ];
               extraSpecialArgs = specialArgs;
             };
           }

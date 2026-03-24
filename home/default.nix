@@ -26,6 +26,7 @@ in {
     homeConfigurations = {
       "simon" = homeManagerConfiguration {
         modules = homeImports."simon" ++ [
+          inputs.nixvim.homeModules.nixvim
           inputs.stylix.homeModules.stylix
         ];
         inherit pkgs extraSpecialArgs;
