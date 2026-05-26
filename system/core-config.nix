@@ -30,14 +30,19 @@
   networking.networkmanager = {
     enable = true;
 
-    unmanaged = [ "interface-name:wlp0s20f0u*" "interface-name:wlp8s0f3u*" "interface-name:wlp8s0f4u*" ];
+    unmanaged = [ "interface-name:wlp0s20f0u*" "interface-name:wlp8s0f4u*" ];
     plugins = [ pkgs.networkmanager-openconnect ];
   };
   networking.firewall.enable = true;
+  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+  boot.extraModprobeConfig = ''
+    options bluetooth disable_ertm=1
+  ''; # temp bluetooth fix?
+
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -95,6 +100,7 @@
     mako
     systemd
     openconnect
+    ntfs3g
   ];
 
   services.flatpak.enable = true;
@@ -127,6 +133,8 @@
 
   # printing
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.samsung-unified-linux-driver ];
+
 
   # ipp everywhere (also for printers)
   services.avahi = {

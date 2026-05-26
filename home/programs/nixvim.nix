@@ -21,8 +21,8 @@
       rustfmt
       taplo
       nil
-      nodePackages.vscode-langservers-extracted
-      nodePackages.yaml-language-server
+      vscode-langservers-extracted
+      yaml-language-server
       marksman
       ruff
       lua51Packages.tiktoken_core
@@ -41,7 +41,6 @@
       bufferline-nvim
       lualine-nvim
       telescope-nvim
-      nvim-treesitter
       nvim-lspconfig
       nvim-cmp
       cmp-nvim-lsp
@@ -53,6 +52,63 @@
       lspkind-nvim
       lsp_signature-nvim
     ];
+
+    plugins = {
+      treesitter = {
+        enable = true;
+  
+        settings = {
+          indent = {
+            enable = true;
+          };
+          highlight = {
+            enable = true;
+          };
+        };
+  
+        nixvimInjections = true;
+        grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars;
+      };
+  
+      treesitter-context = {
+        enable = true;
+      };
+  
+      treesitter-textobjects = {
+        enable = true;
+        select = {
+          enable = true;
+          lookahead = true;
+        };
+      };
+
+      copilot-lua = {
+        enable = true;
+        settings = {
+          panel.enabled = false;
+          suggestion.enabled = false;
+        };
+      };
+
+      avante = {
+        enable = true;
+        settings = {
+          provider = "gemini";
+          auto_suggestions_provider = "gemini";
+
+          # Keep both providers configured so Avante can switch between them.
+          providers = {
+            copilot = {
+              model = "gpt-5.3-codex";
+            };
+
+            gemini = {
+              model = "gemini-3.1-pro-preview";
+            };
+          };
+        };
+      };
+    };
 
     extraConfigLua = ''
       vim.g.mapleader = " "
@@ -212,30 +268,17 @@
       map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
       map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help" })
 
-      local ts_ok, ts_configs = pcall(require, "nvim-treesitter.configs")
-      if not ts_ok then
-        ts_ok, ts_configs = pcall(require, "nvim-treesitter.config")
-      end
-      if ts_ok then
-        ts_configs.setup({
-          highlight = { enable = true },
-          indent = { enable = true },
-          auto_install = true,
-          ensure_installed = {
-            "bash",
-            "go",
-            "json",
-            "lua",
-            "markdown",
-            "nix",
-            "python",
-            "rust",
-            "toml",
-            "vim",
-            "yaml",
-          },
-        })
-      end
+
+
+      local map = vim.keymap.set
+      local opts = { noremap = true, silent = true }
+
+      map("n", "<leader>aa", "<cmd>AvanteToggle<cr>", vim.tbl_extend("force", opts, { desc = "Avante: show sidebar" }))
+      map("n", "<leader>a?", "<cmd>AvanteSwitchProvider<cr>", vim.tbl_extend("force", opts, { desc = "Avante: select model" }))
+      map("n", "<leader>an", "<cmd>AvanteAsk<cr>", vim.tbl_extend("force", opts, { desc = "Avante: new ask" }))
+      map("n", "<leader>ae", "<cmd>AvanteEdit<cr>", vim.tbl_extend("force", opts, { desc = "Avante: edit selected blocks" }))
+      map("n", "<leader>aS", "<cmd>AvanteStop<cr>", vim.tbl_extend("force", opts, { desc = "Avante: stop current AI request" }))
+      map("n", "<leader>ah", "<cmd>AvanteHistory<cr>", vim.tbl_extend("force", opts, { desc = "Avante: select chat history" }))
 
       local cmp = require("cmp")
       local lspkind = require("lspkind")

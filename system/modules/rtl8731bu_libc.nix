@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     owner = "libc0607";
     repo = "rtl8733bu-20230626";
     rev = "v5.13.0.1"; # or pin to latest commit
-    sha256 = "sha256-md/xZrDt7dW3NOP6YGkGbgHWIdNPHGr7AZFvKRo6UNA=";
+    sha256 = "sha256-tJdrOytwLgYCzun0lGII3AszZeExMKESWhgbe5DSdic=";
   };
 
   nativeBuildInputs = [

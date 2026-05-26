@@ -14,6 +14,7 @@ in
   ];
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [ inputs.affinity-nix.overlays.default ];
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -41,14 +42,14 @@ in
   };
 
   # Call noctalia lock on lid close 
-  services.swayidle = {
-    enable = true;
-    systemdTarget = "niri-session.target"; # Ensures it starts only when Niri is active
-    events = {
-      "before-sleep" = "noctalia-shell ipc call lockScreen lock";
-      "lock" = "noctalia-shell ipc call lockScreen lock";
-    };
-  };
+  # services.swayidle = {
+  #   enable = true;
+  #   systemdTarget = "niri-session.target"; # Ensures it starts only when Niri is active
+  #   events = {
+  #     "before-sleep" = "noctalia-shell ipc call lockScreen lock";
+  #     "lock" = "noctalia-shell ipc call lockScreen lock";
+  #   };
+  # };
 
 
   # automatic disk mounting
@@ -72,6 +73,7 @@ in
     enable = true;
     plugins = [
       pkgs.obs-studio-plugins.wlrobs
+      pkgs.obs-studio-plugins.obs-shaderfilter
     ];
   };
 

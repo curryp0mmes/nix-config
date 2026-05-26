@@ -18,7 +18,7 @@
   # Configure wifibroadcast drivers
   boot.blacklistedKernelModules = [ "rtw88_8812au" "r8169" ];
   boot.extraModulePackages = [
-  #  (config.boot.kernelPackages.callPackage ./modules/rtl8731bu_libc.nix { })
+    (config.boot.kernelPackages.callPackage ./modules/rtl8731bu_libc.nix { })
     (config.boot.kernelPackages.callPackage ./modules/rtl8812au_openipc.nix { })
   #  (config.boot.kernelPackages.callPackage ./modules/rtl8812au_aircrack.nix { })
   #  config.boot.kernelPackages.rtl88xxau-aircrack
@@ -26,7 +26,7 @@
     config.boot.kernelPackages.r8168
   ];
   # force loading the custom driver at boot
-  boot.kernelModules = [ "novalpdrv" "r8168" "88XXau_wfb" ];
+  boot.kernelModules = [ "binder_linux" "ashmem_linux" "novalpdrv" "r8168" "88XXau_wfb" "8733bu" ];
   #boot.kernelModules = [ "novalpdrv" "88XXau_wfb" "8733bu" "r8168"];
   #boot.kernelModules = [ "rtl8812au" ];
 
@@ -99,5 +99,6 @@
     fira-code
     fira-code-symbols
     nerd-fonts.fira-code
+    orbitron
   ];
 }

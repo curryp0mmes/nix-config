@@ -5,6 +5,9 @@ let
 in
 {
 
+  virtualisation.waydroid.enable = true;
+  virtualisation.waydroid.package = pkgs.waydroid-nftables;
+
   virtualisation.libvirtd = {
     enable = true;
     qemu = {

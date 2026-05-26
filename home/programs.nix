@@ -1,9 +1,12 @@
 { pkgs, inputs, ... }:
 let
-  stablePkgs = import inputs.nixpkgs_stable {
+  unstablePkgs = import inputs.nixpkgs_unstable {
     system = pkgs.stdenv.hostPlatform.system;
     config.allowUnfree = true;
   };
+
+  cursor3 = pkgs.callPackage ./programs/cursor.nix {};
+  antigravity = pkgs.callPackage ./programs/antigravity.nix {};
 in
 {
   home.packages = with pkgs; [
@@ -20,6 +23,7 @@ in
     nwg-displays
     parsec-bin
     prismlauncher
+    keepassxc
      
     #audio and DAW
     vital
@@ -57,15 +61,19 @@ in
     orca-slicer
     # kdePackages.kdenlive
     discord
-    mpv
-    kicad
+    unstablePkgs.kicad
     wiremix
     bluetuith
     kdePackages.okular
     gimp3-with-plugins
-    inputs.affinity-nix.packages.${pkgs.stdenv.hostPlatform.system}.v3
+    affinity-v3
     vlc
     vscode
+
+    # AI stuff
+    cursor3
+    antigravity
+    unstablePkgs.gemini-cli
     zed-editor
     onlyoffice-desktopeditors
     obsidian
@@ -73,7 +81,8 @@ in
     betaflight-configurator
     rpi-imager
     telegram-desktop
-    stablePkgs."saleae-logic-2"
+    #stablePkgs."saleae-logic-2"
+    saleae-logic-2
 
     (texlive.withPackages (ps: with ps; [
       scheme-gust darkmode latexmk eurosym makecell csquotes titlesec xstring
