@@ -81,33 +81,6 @@
           lookahead = true;
         };
       };
-
-      copilot-lua = {
-        enable = true;
-        settings = {
-          panel.enabled = false;
-          suggestion.enabled = false;
-        };
-      };
-
-      avante = {
-        enable = true;
-        settings = {
-          provider = "gemini";
-          auto_suggestions_provider = "gemini";
-
-          # Keep both providers configured so Avante can switch between them.
-          providers = {
-            copilot = {
-              model = "gpt-5.3-codex";
-            };
-
-            gemini = {
-              model = "gemini-3.1-pro-preview";
-            };
-          };
-        };
-      };
     };
 
     extraConfigLua = ''

@@ -2,3 +2,8 @@
 on   = [ "g", "l" ]
 run  = "plugin lazygit"
 desc = "run lazygit"
+
+[[mgr.prepend_keymap]]
+on   = [ "g", "m" ]
+run  = "plugin mount-tabs"
+desc = "Open all mount points in tabs"

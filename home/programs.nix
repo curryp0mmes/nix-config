@@ -66,8 +66,9 @@ in
     bluetuith
     kdePackages.okular
     gimp3-with-plugins
-    affinity-v3
+    #affinity-v3
     vlc
+    mpv
     vscode
 
     # AI stuff
