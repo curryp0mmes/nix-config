@@ -39,6 +39,7 @@ in
         # bookmarks, extensions, search engines...
       };
     };
+    configPath = ".mozilla/firefox";
   };
 
   # Call noctalia lock on lid close 
@@ -82,7 +83,7 @@ in
     profileNames = [ "simon" ];
     enable = true;
   };
-  gtk.gtk4.theme = config.gtk.theme;
+  #gtk.gtk4.theme = config.gtk.theme;
   # xdg.mimeApps = {
   #   enable = true;
   #   defaultApplications = {

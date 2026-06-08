@@ -10,12 +10,12 @@
 
   inputs = {
 
-    nixpkgs_unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs_stable.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    nix-easyroam.url = "github:0x5a4/nix-easyroam/592540d50149d5ccc2e2ff5105d141ed710dad57";
+    nix-easyroam.url = "github:0x5a4/nix-easyroam";
 
     affinity-nix.url = "github:mrshmllow/affinity-nix";
 
@@ -25,7 +25,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -40,18 +40,23 @@
     };
 
     stylix = {
-      url = "github:nix-community/stylix/release-25.11";
+      url = "github:nix-community/stylix";
+      #url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      url = "github:noctalia-dev/noctalia-shell/legacy-v4";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    wfb-rs = {
+      url = "github:s2outh/wfb-rs";
     };
   };
 }

@@ -1,6 +1,11 @@
 { pkgs, inputs, ... }:
 let
-  unstablePkgs = import inputs.nixpkgs_unstable {
+  # unstablePkgs = import inputs.nixpkgs_unstable {
+  #   system = pkgs.stdenv.hostPlatform.system;
+  #   config.allowUnfree = true;
+  # };
+
+  stablePkgs = import inputs.nixpkgs_stable {
     system = pkgs.stdenv.hostPlatform.system;
     config.allowUnfree = true;
   };
@@ -32,7 +37,6 @@ in
 
     python313
     python313Packages.pip
-    pipx
     # cli tools
     borgbackup
     simple-mtpfs
@@ -61,12 +65,12 @@ in
     orca-slicer
     # kdePackages.kdenlive
     discord
-    unstablePkgs.kicad
+    kicad
     wiremix
     bluetuith
     kdePackages.okular
     gimp3-with-plugins
-    #affinity-v3
+    affinity-v3
     vlc
     mpv
     vscode
@@ -74,8 +78,8 @@ in
     # AI stuff
     cursor3
     antigravity
-    unstablePkgs.gemini-cli
-    zed-editor
+    #unstablePkgs.gemini-cli
+    gemini-cli
     onlyoffice-desktopeditors
     obsidian
     mixxx
