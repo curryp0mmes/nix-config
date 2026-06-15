@@ -1,4 +1,10 @@
-{ pkgs, stdenv, lib, makeWrapper, ... }:
+{
+  pkgs,
+  stdenv,
+  lib,
+  makeWrapper,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "antigravity";

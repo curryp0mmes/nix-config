@@ -23,13 +23,16 @@ in
     qemu_kvm
     OVMF
   ];
-  
+
   users.groups.libvirtd.members = [ username ];
 
   virtualisation.spiceUSBRedirection.enable = true;
-  
+
   # Add user to libvirt and kvm groups
-  users.users.${username}.extraGroups = [ "libvirtd" "kvm" ];
+  users.users.${username}.extraGroups = [
+    "libvirtd"
+    "kvm"
+  ];
 
   # Ensure libvirt starts on boot
   services.spice-vdagentd.enable = true;

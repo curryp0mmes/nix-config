@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   imports = [
     ./modules/virtualisation.nix
@@ -16,15 +21,25 @@
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # Configure wifibroadcast drivers
-  boot.blacklistedKernelModules = [ "rtw88_8812au" "r8169" ];
+  boot.blacklistedKernelModules = [
+    "rtw88_8812au"
+    "r8169"
+  ];
   boot.extraModulePackages = [
-  #  (config.boot.kernelPackages.callPackage ./modules/rtl8812au_aircrack.nix { })
-  #  config.boot.kernelPackages.rtl88xxau-aircrack
+    #  (config.boot.kernelPackages.callPackage ./modules/rtl8812au_aircrack.nix { })
+    #  config.boot.kernelPackages.rtl88xxau-aircrack
     config.boot.kernelPackages.v4l2loopback # virtual cam srcs
     config.boot.kernelPackages.r8168
   ];
   # force loading the custom driver at boot
-  boot.kernelModules = [ "binder_linux" "ashmem_linux" "novalpdrv" "r8168" "88XXau_wfb" "8733bu" ];
+  boot.kernelModules = [
+    "binder_linux"
+    "ashmem_linux"
+    "novalpdrv"
+    "r8168"
+    "88XXau_wfb"
+    "8733bu"
+  ];
   #boot.kernelModules = [ "novalpdrv" "88XXau_wfb" "8733bu" "r8168"];
   #boot.kernelModules = [ "rtl8812au" ];
 
@@ -51,7 +66,7 @@
   services.upower.enable = true;
   services.tuned.enable = true;
   services.tlp.enable = false;
-  
+
   # Add a rule to allow setting power threshholds
   systemd.tmpfiles.rules = [
     "f /sys/class/power_supply/BAT0/charge_control_end_threshold 0664 root battery_ctl - -"
@@ -67,7 +82,7 @@
 
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
-  
+
   # services.tlp = {
   #   enable = true;
   #   settings = {

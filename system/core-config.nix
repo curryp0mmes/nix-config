@@ -5,17 +5,23 @@
   ];
 
   nix = {
-  	settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-  	  auto-optimise-store = true;
-      trusted-users = [ "root" "simon" ];
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      auto-optimise-store = true;
+      trusted-users = [
+        "root"
+        "simon"
+      ];
     };
 
-  	# gc = {  # Nix Garbage Collector
-  	# 	automatic = true;
-  	# 	dates = "weekly";
-  	# 	options = "--delete-older-than 14d";
-  	# };
+    # gc = {  # Nix Garbage Collector
+    # 	automatic = true;
+    # 	dates = "weekly";
+    # 	options = "--delete-older-than 14d";
+    # };
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -30,11 +36,17 @@
   networking.networkmanager = {
     enable = true;
 
-    unmanaged = [ "interface-name:wlp0s20f0u*" "interface-name:wlp8s0f4u*" ];
+    unmanaged = [
+      "interface-name:wlp0s20f0u*"
+      "interface-name:wlp8s0f4u*"
+    ];
     plugins = [ pkgs.networkmanager-openconnect ];
   };
   networking.firewall.enable = true;
-  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+  networking.nameservers = [
+    "1.1.1.1"
+    "8.8.8.8"
+  ];
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -42,7 +54,6 @@
   boot.extraModprobeConfig = ''
     options bluetooth disable_ertm=1
   ''; # temp bluetooth fix?
-
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -80,10 +91,11 @@
       "audio"
       "docker"
       "battery_ctl"
+      "storage"
+      "disk"
     ];
   };
   # users.mutableUsers = false;
-
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -101,16 +113,34 @@
     systemd
     openconnect
     ntfs3g
+    (rpi-imager.overrideAttrs (old: {
+      postFixup = (old.postFixup or "") + ''
+        substituteInPlace $out/share/applications/*.desktop \
+          --replace "Exec=rpi-imager" "Exec=pkexec rpi-imager"
+      '';
+    }))
+    libxcb-cursor
+    kdePackages.polkit-kde-agent-1
   ];
-
   services.flatpak.enable = true;
-  
+
   #important upgrade
   security.sudo.enable = false;
   security.sudo-rs = {
     enable = true;
     execWheelOnly = true;
   };
+  # Polkit
+  security.polkit.enable = true;
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (action.id == "org.freedesktop.policykit.exec" &&
+          action.lookup("program") == "${pkgs.rpi-imager}/bin/rpi-imager" &&
+          subject.isInGroup("wheel")) {
+        return polkit.Result.YES;
+      }
+    });
+  '';
 
   # pipewire audio
   services.pulseaudio.enable = false;
@@ -131,10 +161,27 @@
     wantedBy = [ "default.target" ];
   };
 
+  systemd.user.services.polkit-kde-authentication-agent-1 = {
+    description = "polkit-kde-authentication-agent-1";
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+      # Prevent crash due to missing kvantum theme engine in the agent's closure
+      UnsetEnvironment = "QT_STYLE_OVERRIDE";
+    };
+  };
+
+  # ... rest of file
+
   # printing
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.samsung-unified-linux-driver ];
-
 
   # ipp everywhere (also for printers)
   services.avahi = {

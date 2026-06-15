@@ -1,4 +1,10 @@
-{ pkgs, stdenv, lib, makeWrapper, ... }:
+{
+  pkgs,
+  stdenv,
+  lib,
+  makeWrapper,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "cursor3";
@@ -12,7 +18,7 @@ stdenv.mkDerivation rec {
     makeWrapper # Needed to wrap the binary for Wayland/Sandbox
   ];
 
-  # Electron apps are heavy on dependencies. 
+  # Electron apps are heavy on dependencies.
   # You'll likely need these for Cursor to launch.
   buildInputs = with pkgs; [
     alsa-lib
@@ -53,7 +59,7 @@ stdenv.mkDerivation rec {
     libxshmfence
     libxkbfile
   ];
-  
+
   unpackPhase = ''
     runHook preUnpack
     ar x $src
@@ -107,4 +113,5 @@ stdenv.mkDerivation rec {
     homepage = "https://cursor.com";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-  };}
+  };
+}

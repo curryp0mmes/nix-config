@@ -1,11 +1,15 @@
 {
   description = "Simons NixOS Configuration";
 
-  outputs = inputs:
+  outputs =
+    inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
 
-      imports = [ ./home ./system ];
+      imports = [
+        ./home
+        ./system
+      ];
     };
 
   inputs = {
@@ -15,7 +19,7 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    nix-easyroam.url = "github:0x5a4/nix-easyroam";
+    nix-easyroam.url = "path:/home/simon/Code/other/nix-easyroam";
 
     affinity-nix.url = "github:mrshmllow/affinity-nix";
 

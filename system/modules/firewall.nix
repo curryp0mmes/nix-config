@@ -3,7 +3,7 @@
   # aditionall firewall settings
   networking.nftables.enable = true;
   networking.firewall = {
-    allowedTCPPorts = [ 
+    allowedTCPPorts = [
       5201
       4222
       8080
@@ -21,10 +21,10 @@
       8889
       9222
       2626
-    #   14550
-    #   5001
-    #   67
-     ]; # 1. RHD 2. MavLink 3. RODOS 4. dhcp server
+      #   14550
+      #   5001
+      #   67
+    ]; # 1. RHD 2. MavLink 3. RODOS 4. dhcp server
     # checkReversePath = "loose"; # for tailscale
   };
 }

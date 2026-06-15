@@ -1,7 +1,12 @@
-{ pkgs, inputs, config, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 let
-  createSymlink = localPath:
-    config.lib.file.mkOutOfStoreSymlink "/home/simon/nix/home/configs/${localPath}";
+  createSymlink =
+    localPath: config.lib.file.mkOutOfStoreSymlink "/home/simon/nix/home/configs/${localPath}";
 in
 {
   imports = [
@@ -42,7 +47,7 @@ in
     configPath = ".mozilla/firefox";
   };
 
-  # Call noctalia lock on lid close 
+  # Call noctalia lock on lid close
   # services.swayidle = {
   #   enable = true;
   #   systemdTarget = "niri-session.target"; # Ensures it starts only when Niri is active
@@ -51,7 +56,6 @@ in
   #     "lock" = "noctalia-shell ipc call lockScreen lock";
   #   };
   # };
-
 
   # automatic disk mounting
   services.udiskie = {

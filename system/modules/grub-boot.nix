@@ -11,7 +11,11 @@
       themes = [
         (pkgs.callPackage (
           # A popular theme for a modern look
-          { grub2-theme, stdenv, lib }:
+          {
+            grub2-theme,
+            stdenv,
+            lib,
+          }:
           grub2-theme {
             pname = "grub2-theme-tela";
             src = pkgs.fetchurl {
@@ -19,12 +23,16 @@
               hash = "sha256-R/J2qI0I1H93z/oV/N7d/T/S0gD9X/9z/w/A=";
             };
           }
-        ) {})
+        ) { })
       ];
     };
   };
   boot.plymouth = {
     enable = true;
   };
-  boot.kernelParams = [ "quiet" "splash" "vt.global_cursor_default=0" ];
+  boot.kernelParams = [
+    "quiet"
+    "splash"
+    "vt.global_cursor_default=0"
+  ];
 }

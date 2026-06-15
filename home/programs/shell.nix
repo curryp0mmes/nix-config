@@ -15,28 +15,28 @@
         local cmd="$1"
         shift
         local args=("$@")
-  
+
         # Colors for the script UI
         local CYAN='\033[0;36m'
         local GREEN='\033[0;32m'
         local YELLOW='\033[1;33m'
         local RED='\033[0;31m'
         local NC='\033[0m'
-  
+
         echo -e "''${CYAN}--- '$cmd' not found. Searching nixpkgs... ---''${NC}"
-  
+
         # 1. Capture and clean nh search results
         local raw_pkgs=$(nh search "$cmd" --limit 6 | \
           sed 's/\x1b\[[0-9;]*[mGKH]//g' | \
           grep "(" | grep -v "Querying" | awk '{print $1}' | \
           tac)
-  
+
         # Check if we found anything
         if [ -z "$raw_pkgs" ]; then
           echo -e "''${RED}No package found for '$cmd' in nixpkgs.''${NC}"
           return 127
         fi
-  
+
         # 2. Use fzf for a graphical selector
         # --height 40%: don't take over the whole screen
         # --layout=reverse: list starts near the prompt
@@ -48,7 +48,7 @@
           --border \
           --prompt="Select package for '$cmd' > " \
           --header="Enter to run, ESC to cancel")
-  
+
         # If the user didn't cancel (ESC)
         if [ -n "$pkg" ]; then
           # Trim whitespace
@@ -61,10 +61,10 @@
           echo -e "''${RED}Aborted.''${NC}"
         fi
       }
-  
+
       fastfetch --config ~/.config/fastfetch/minimal.jsonc
     '';
-    
+
   };
 
   programs.kitty = {

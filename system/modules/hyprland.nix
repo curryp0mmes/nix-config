@@ -19,12 +19,11 @@
   # Enable Hyprlock
   programs.hyprlock.enable = true;
   security.pam.services.hyprlock = { };
- 
+
   # Enable waybar
   programs.waybar.enable = true;
 
-
-  # setup stuff for theming Plasma Apps 
+  # setup stuff for theming Plasma Apps
   environment.systemPackages = with pkgs; [ qt6Packages.qt6ct ];
   environment.variables.QT_QPA_PLATFORMTHEME = "qt6ct";
 }

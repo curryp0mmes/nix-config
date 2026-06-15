@@ -7,5 +7,8 @@
     greetd-password.enableGnomeKeyring = true;
     login.enableGnomeKeyring = true;
   };
-  services.dbus.packages = [ pkgs.gnome-keyring pkgs.gcr ];
+  services.dbus.packages = [
+    pkgs.gnome-keyring
+    pkgs.gcr
+  ];
 }

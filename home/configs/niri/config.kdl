@@ -2,6 +2,7 @@
 // https://yalter.github.io/niri/Configuration:-Introduction
 
 // spawn-sh-at-startup "wpaperd -d"
+spawn-sh-at-startup "dbus-update-activation-environment --systemd --all"
 spawn-sh-at-startup "noctalia-shell"
 
 binds {

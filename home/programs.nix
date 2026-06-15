@@ -10,8 +10,8 @@ let
     config.allowUnfree = true;
   };
 
-  cursor3 = pkgs.callPackage ./programs/cursor.nix {};
-  antigravity = pkgs.callPackage ./programs/antigravity.nix {};
+  cursor3 = pkgs.callPackage ./programs/cursor.nix { };
+  antigravity = pkgs.callPackage ./programs/antigravity.nix { };
 in
 {
   home.packages = with pkgs; [
@@ -29,7 +29,7 @@ in
     parsec-bin
     prismlauncher
     keepassxc
-     
+
     #audio and DAW
     vital
     zrythm
@@ -54,7 +54,7 @@ in
     fzf
     nodejs_24
     ffmpeg_7-full
-    freecad 
+    freecad
     gqrx
 
     #libraries
@@ -84,13 +84,21 @@ in
     obsidian
     mixxx
     betaflight-configurator
-    rpi-imager
     telegram-desktop
     #stablePkgs."saleae-logic-2"
     saleae-logic-2
 
-    (texlive.withPackages (ps: with ps; [
-      scheme-gust darkmode latexmk eurosym makecell csquotes titlesec xstring
-    ]))
+    (texlive.withPackages (
+      ps: with ps; [
+        scheme-gust
+        darkmode
+        latexmk
+        eurosym
+        makecell
+        csquotes
+        titlesec
+        xstring
+      ]
+    ))
   ];
 }

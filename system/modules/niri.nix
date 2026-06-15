@@ -1,4 +1,9 @@
-{ inputs, pkgs, lib, ... }:
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 {
   # Enable niri
   programs.niri = {
@@ -18,15 +23,15 @@
 
   # Provide a tiny callable that termfilechooser uses
   environment.etc."yazi-file-chooser.sh".source = pkgs.writeShellScript "yazi-file-chooser" ''
-  #!/usr/bin/env bash
-  DIR="''${1:-$PWD}"
+    #!/usr/bin/env bash
+    DIR="''${1:-$PWD}"
 
-  # Run Yazi in picker mode and print result
-  FILE=$(yazi "''${DIR}")
+    # Run Yazi in picker mode and print result
+    FILE=$(yazi "''${DIR}")
 
-  # termfilechooser expects path to stdout
-  [ -n "''${FILE}" ] && printf '%s\n' "''${FILE}"
-'';
+    # termfilechooser expects path to stdout
+    [ -n "''${FILE}" ] && printf '%s\n' "''${FILE}"
+  '';
 
   # Enable Hyprlock
   #programs.hyprlock.enable = true;
@@ -36,7 +41,7 @@
   # programs.waybar.enable = true;
 
   services.dbus.enable = true;
- 
+
   services.pipewire = {
     enable = true;
     pulse.enable = true;
@@ -55,11 +60,11 @@
       niri = {
         # 1. Use termfilechooser specifically for opening/saving files
         "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
- 
+
         # 2. Use GNOME specifically for Screencast and Screenshot
         "org.freedesktop.impl.portal.ScreenCast" = "gnome";
         "org.freedesktop.impl.portal.Screenshot" = "gnome";
- 
+
         # 3. Fallback for everything else (Secrets, Settings, etc.)
         default = lib.mkDefault "gnome";
       };
@@ -67,11 +72,11 @@
   };
 
   xdg.mime = {
-      enable = true;
-      defaultApplications = {
-        "application/pdf" = "firefox.desktop";
-        "application/html" = "firefox.desktop";
-      };
+    enable = true;
+    defaultApplications = {
+      "application/pdf" = "firefox.desktop";
+      "application/html" = "firefox.desktop";
+    };
   };
   environment.variables.TERMFILECHOOSER = "/etc/yazi-file-chooser.sh";
 
