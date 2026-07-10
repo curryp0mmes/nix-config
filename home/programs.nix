@@ -12,6 +12,7 @@ let
 
   cursor3 = pkgs.callPackage ./programs/cursor.nix { };
   antigravity = pkgs.callPackage ./programs/antigravity.nix { };
+  bambu-studio = pkgs.callPackage ./programs/bambu-studio.nix { };
 in
 {
   home.packages = with pkgs; [
@@ -29,6 +30,8 @@ in
     parsec-bin
     prismlauncher
     keepassxc
+    thunderbird
+    simple-scan
 
     #audio and DAW
     vital
@@ -63,6 +66,7 @@ in
     zlib
     # general programs
     orca-slicer
+    bambu-studio
     # kdePackages.kdenlive
     discord
     kicad
@@ -78,8 +82,7 @@ in
     # AI stuff
     cursor3
     antigravity
-    #unstablePkgs.gemini-cli
-    gemini-cli
+    antigravity-cli
     onlyoffice-desktopeditors
     obsidian
     mixxx
