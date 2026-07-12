@@ -101,6 +101,8 @@
       "battery_ctl"
       "storage"
       "disk"
+      "scanner"
+      "lp"
     ];
   };
   # users.mutableUsers = false;
@@ -190,8 +192,10 @@
   # printing
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplipWithPlugin pkgs.samsung-unified-linux-driver ];
-  hardware.sane.enable = true; #scanner support
-
+  hardware.sane = {
+    enable = true; #scanner support
+    extraBackends = [ pkgs.samsung-unified-linux-driver ];
+  };
   # ipp everywhere (also for printers)
   services.avahi = {
     enable = true;

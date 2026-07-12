@@ -18,38 +18,63 @@ in
   home.packages = with pkgs; [
     nix-output-monitor # for 'nh'
 
-    # Desktop manager
-    wpaperd
-    # Base OS stuff
+### Base OS stuff
     brightnessctl
     libnotify # for notify-send
+    wlr-randr
+    
+### Desktop Apps
     networkmanagerapplet
     #davinci-resolve
-    wlr-randr
     nwg-displays
-    parsec-bin
     prismlauncher
     keepassxc
     thunderbird
     simple-scan
+    gqrx
+    #freecad
+    orca-slicer
+    bambu-studio
+    #kdePackages.kdenlive
+    discord
+    kicad
+    kdePackages.okular
+    gimp3-with-plugins
+    affinity-v3
+    vlc
+    mpv
+    vscode
+    dolphin-emu
+    onlyoffice-desktopeditors
+    obsidian
+    jellyfin-media-player
+    betaflight-configurator
+    telegram-desktop
+    #stablePkgs."saleae-logic-2"
+    saleae-logic-2
 
-    #audio and DAW
+
+### audio and DAW
     vital
     zrythm
-    jellyfin-media-player
+    mixxx
 
+
+### cli tools
     python313
     python313Packages.pip
-    # cli tools
     borgbackup
     simple-mtpfs
     jmtpfs
     udiskie
     nmap
     tldr
-    cmake
-    ninja
-    #lazyvim stuff
+    speedtest-cli
+    wiremix
+    bluetuith
+
+
+### lazyvim stuff
     lazygit
     stylua
     fd
@@ -57,51 +82,16 @@ in
     fzf
     nodejs_24
     ffmpeg_7-full
-    freecad
-    gqrx
 
-    #libraries
+
+### libraries
     python313Packages.libxml2
     python313Packages.libxslt
     zlib
-    # general programs
-    orca-slicer
-    bambu-studio
-    # kdePackages.kdenlive
-    discord
-    kicad
-    wiremix
-    bluetuith
-    kdePackages.okular
-    gimp3-with-plugins
-    affinity-v3
-    vlc
-    mpv
-    vscode
 
-    # AI stuff
+### AI stuff
     cursor3
     antigravity
     antigravity-cli
-    onlyoffice-desktopeditors
-    obsidian
-    mixxx
-    betaflight-configurator
-    telegram-desktop
-    #stablePkgs."saleae-logic-2"
-    saleae-logic-2
-
-    (texlive.withPackages (
-      ps: with ps; [
-        scheme-gust
-        darkmode
-        latexmk
-        eurosym
-        makecell
-        csquotes
-        titlesec
-        xstring
-      ]
-    ))
   ];
 }
