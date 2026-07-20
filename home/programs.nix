@@ -10,7 +10,6 @@ let
     config.allowUnfree = true;
   };
 
-  cursor3 = pkgs.callPackage ./programs/cursor.nix { };
   antigravity = pkgs.callPackage ./programs/antigravity.nix { };
   bambu-studio = pkgs.callPackage ./programs/bambu-studio.nix { };
 in
@@ -72,6 +71,7 @@ in
     speedtest-cli
     wiremix
     bluetuith
+    gh
 
 
 ### lazyvim stuff
@@ -92,6 +92,6 @@ in
 ### AI stuff
     antigravity
     antigravity-cli
-    copilot-cli
+    copilot-language-server
   ];
 }

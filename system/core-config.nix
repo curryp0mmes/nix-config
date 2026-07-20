@@ -36,6 +36,7 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
+  nixpkgs.overlays = [ inputs.affinity-nix.overlays.default ];
   programs.nh = {
     enable = true;
     clean.enable = true;

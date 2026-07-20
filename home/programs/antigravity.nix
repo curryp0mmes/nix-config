@@ -2,15 +2,19 @@
   pkgs,
   stdenv,
   lib,
+  fetchurl,
   makeWrapper,
   ...
 }:
 
 stdenv.mkDerivation rec {
   pname = "antigravity";
-  version = "1.0.0"; # Version not explicitly found, using 1.0.0
+  version = "2.3.1-5358163105546240";
 
-  src = ./Antigravity.tar.gz;
+  src = fetchurl {
+    url = "https://storage.googleapis.com/antigravity-public/antigravity-hub/2.3.1-5358163105546240/linux-x64/Antigravity.tar.gz";
+    hash = "sha256-ehmSFJ45bswS56QrFVY4lYcB2qplvtB83P5jm4Jnx0U=";
+  };
 
   nativeBuildInputs = with pkgs; [
     autoPatchelfHook

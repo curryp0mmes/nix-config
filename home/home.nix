@@ -18,13 +18,12 @@ in
     ./programs/noctalia.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [ inputs.affinity-nix.overlays.default ];
-
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "simon";
   home.homeDirectory = "/home/simon";
+
+  home.pointerCursor.enable = true;
 
   programs.git = {
     enable = true;

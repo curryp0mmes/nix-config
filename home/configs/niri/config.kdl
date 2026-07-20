@@ -29,8 +29,8 @@ binds {
     Mod+C hotkey-overlay-title="Open kiCad" { spawn "kicad"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
-    Mod+Space hotkey-overlay-title="Launcher" { spawn-sh "noctalia-shell ipc call launcher toggle"; }
-    Super+Escape hotkey-overlay-title="Lock Screen" { spawn-sh "noctalia-shell ipc call lockScreen lock || niri msg action quit"; }
+    Mod+Space hotkey-overlay-title="Launcher" { spawn-sh "noctalia msg panel-toggle launcher"; }
+    Super+Escape hotkey-overlay-title="Lock Screen" { spawn-sh "noctalia msg session lock || niri msg action quit"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // Using spawn-sh allows to pass multiple arguments together with the command.

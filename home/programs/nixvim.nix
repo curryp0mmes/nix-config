@@ -2,6 +2,7 @@
 {
   programs.nixvim = {
     enable = true;
+    nixpkgs.useGlobalPackages = true;
     defaultEditor = true;
     vimAlias = true;
     viAlias = true;

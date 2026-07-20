@@ -19,7 +19,7 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    nix-easyroam.url = "path:/home/simon/Code/other/nix-easyroam";
+    nix-easyroam.url = "git+file:///home/simon/Code/other/nix-easyroam";
 
     affinity-nix.url = "github:mrshmllow/affinity-nix";
 
@@ -51,7 +51,7 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      #inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     noctalia = {
@@ -61,7 +61,7 @@
 
     wfb-rs = {
       #url = "github:s2outh/wfb-rs";
-      url = "path:/home/simon/Code/rust/wfb_rs";
+      url = "git+file:///home/simon/Code/rust/wfb_rs";
     };
   };
 }

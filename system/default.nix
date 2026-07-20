@@ -66,6 +66,8 @@
                 inputs.nixvim.homeModules.nixvim
               ];
               extraSpecialArgs = specialArgs;
+              useGlobalPkgs = true;
+              useUserPackages = true;
             };
           }
         ];
