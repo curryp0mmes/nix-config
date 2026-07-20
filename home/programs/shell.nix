@@ -67,6 +67,11 @@
 
   };
 
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+  
   programs.kitty = {
     enable = true;
     settings = {

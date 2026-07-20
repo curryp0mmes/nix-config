@@ -79,7 +79,6 @@ in
     stylua
     fd
     ripunzip
-    fzf
     nodejs_24
     ffmpeg_7-full
 
@@ -89,9 +88,10 @@ in
     python313Packages.libxslt
     zlib
 
+
 ### AI stuff
-    cursor3
     antigravity
     antigravity-cli
+    copilot-cli
   ];
 }

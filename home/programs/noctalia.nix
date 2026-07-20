@@ -1,68 +1,75 @@
 { lib, pkgs, ... }:
 {
-  programs.noctalia-shell = {
+  # 1. Renamed to match the v5 native runtime package
+  programs.noctalia = {
     enable = true;
     settings = {
-      # configure noctalia here
+      
+      # 2. Relocated shell-specific attributes
+      shell = {
+        appIconColorize = true;
+        animationSpeed = 1.5;
+        radiusRatio = 0.2; 
+      };
+
+      # 3. Bar handles placement ONLY via list arrays
       bar = {
-        density = "compact";
+        thickness = 32; # v5 scale layout replacing 'density = compact'
         position = "top";
         showCapsule = false;
-        widgets = {
-          left = [
-            {
-              id = "ControlCenter";
-              useDistroLogo = true;
-            }
-            {
-              id = "Network";
-            }
-            {
-              id = "Bluetooth";
-            }
-          ];
-          center = [
-            {
-              hideUnoccupied = false;
-              id = "Workspace";
-              labelMode = "none";
-            }
-          ];
-          right = [
-            {
-              alwaysShowPercentage = false;
-              id = "Battery";
-              warningThreshold = 30;
-            }
-            {
-              formatHorizontal = "HH:mm";
-              formatVertical = "HH mm";
-              id = "Clock";
-              useMonospacedFont = true;
-              usePrimaryColor = true;
-            }
-          ];
+        left = [ "ControlCenter" "Network" "Bluetooth" ];
+        center = [ "Workspace" ];
+        right = [ "Tray" "Battery" "Clock" ];
+      };
+
+      # 3. All individual widget configuration goes here
+      widget = {
+        ControlCenter = {
+          useDistroLogo = true;
+        };
+        Workspace = {
+          style = "regular";
+          display = "none"; # replaces labelMode = "none"
+        };
+        Tray = {
+          drawerEnabled = false; # the key you were looking for earlier!
+        };
+        Battery = {
+          alwaysShowPercentage = false;
+          warningThreshold = 30;
+        };
+        Clock = {
+          format = "{:%H:%M}"; # 4. Updated strftime block syntax
+          useMonospacedFont = true;
+          usePrimaryColor = true;
         };
       };
+
       dock = {
         enabled = false;
       };
-      colorSchemes.predefinedScheme = "Monochrome";
-      general = {
-        # avatarImage = "/home/drfoobar/.face";
-        radiusRatio = 0.2;
-        animationSpeed = 1.5;
+
+      theme = {
+        mode = "dark";
+        #source = "builtin";
+        #builtin = "Catppuccin";
       };
+
       location = {
         monthBeforeDay = false;
         name = "Würzburg, Germany";
         showWeekNumberInCalendar = true;
         firstDayOfWeek = 0;
       };
-      appLauncher = {
+
+      launcher = {
         terminalCommand = "kitty -e";
       };
+
+      wallpaper = {
+        enabled = true;
+        default.path = "/home/simon/Pictures/Wallpapers/nixos_wallpaper_rainbow.png";
+      };
     };
-    # this may also be a string or a path to a JSON file.
   };
 }
