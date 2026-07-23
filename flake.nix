@@ -19,9 +19,13 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    nix-easyroam.url = "git+file:///home/simon/Code/other/nix-easyroam";
+    nix-easyroam = {
+      url = "github:einetuer/nix-easyroam";
+    };
 
-    affinity-nix.url = "github:mrshmllow/affinity-nix";
+    affinity-nix = {
+      url = "github:mrshmllow/affinity-nix";
+    };
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
@@ -30,7 +34,7 @@
 
     home-manager = {
       url = "github:nix-community/home-manager";
-      #inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     niri = {
@@ -45,7 +49,6 @@
 
     stylix = {
       url = "github:nix-community/stylix";
-      #url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -62,6 +65,7 @@
     wfb-rs = {
       #url = "github:s2outh/wfb-rs";
       url = "git+file:///home/simon/Code/rust/wfb_rs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 }

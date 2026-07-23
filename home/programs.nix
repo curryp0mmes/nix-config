@@ -31,7 +31,7 @@ in
     thunderbird
     simple-scan
     gqrx
-    #freecad
+    stablePkgs.freecad
     orca-slicer
     bambu-studio
     #kdePackages.kdenlive
@@ -51,6 +51,7 @@ in
     telegram-desktop
     #stablePkgs."saleae-logic-2"
     saleae-logic-2
+    easyroam-connect-desktop
 
 
 ### audio and DAW
@@ -60,11 +61,10 @@ in
 
 
 ### cli tools
-    python313
-    python313Packages.pip
+    python314
+    python314Packages.pip
     borgbackup
     simple-mtpfs
-    jmtpfs
     udiskie
     nmap
     tldr
@@ -80,7 +80,7 @@ in
     fd
     ripunzip
     nodejs_24
-    ffmpeg_7-full
+    ffmpeg
 
 
 ### libraries

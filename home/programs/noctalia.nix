@@ -14,6 +14,7 @@
           start = [ "control-center" "network" "bluetooth" "active_window" ];
           thickness = 32;
           widget_spacing = 8;
+          radius = 0;
         };
       };
 
@@ -109,14 +110,6 @@
         animation = {
           speed = 0.40000000596046448;
         };
-      };
-
-      theme = {
-        builtin = "Catppuccin";
-        custom_palette = "stylix";
-        mode = "dark";
-        source = "builtin";
-        wallpaper_scheme = "m3-content";
       };
 
       wallpaper = {

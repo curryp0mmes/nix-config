@@ -19,6 +19,7 @@
     v = "nvim";
     vim = "nvim";
     vn = "cd /home/simon/nix && nvim";
+    ncu = "nmcli con up";
 
     # network manager
     bayern = "nmcli con up @BayernWLAN";
