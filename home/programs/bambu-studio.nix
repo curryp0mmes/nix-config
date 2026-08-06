@@ -31,15 +31,33 @@ appimageTools.wrapType2 {
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-bad
+    udev
+    gdk-pixbuf
+    librsvg
+    libdbusmenu-gtk3
+    libX11
+    libXi
+    libXext
+    libXrender
+    libXrandr
+    libXcursor
+    libXinerama
+    libXfixes
   ];
 
   profile = ''
+    export GDK_BACKEND=x11
     export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
     export CURL_CA_BUNDLE="${cacert}/etc/ssl/certs/ca-bundle.crt"
     export WEBKIT_DISABLE_COMPOSITING_MODE=1
     export WEBKIT_DISABLE_DMABUF_RENDERER=1
 
-    # Provide all locales (including en_GB) inside the FHS container
+    # Force supported UTF-8 locale inside FHS container to prevent missing en_GB locale error
+    export LANG="en_US.UTF-8"
+    export LC_ALL="en_US.UTF-8"
+    export LANGUAGE="en_US:en"
+
+    # Provide all locales inside the FHS container
     export LOCALE_ARCHIVE="${glibcLocales}/lib/locale/locale-archive"
   '';
 

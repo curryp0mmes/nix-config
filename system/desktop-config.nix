@@ -23,7 +23,6 @@
   # Configure wifibroadcast drivers
   boot.blacklistedKernelModules = [
     "rtw88_8812au"
-    "r8169"
   ];
   boot.extraModulePackages = [
     #  (config.boot.kernelPackages.callPackage ./modules/rtl8812au_aircrack.nix { })

@@ -23,8 +23,11 @@
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
-      extra-substituters = [ "https://noctalia.cachix.org" ];
-      extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
+      extra-substituters = [ "https://noctalia.cachix.org" "https://cache.forall.systems" ];
+      extra-trusted-public-keys = [ 
+        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+        "cache.forall.systems:5PmD7QO4MSF8YgyRZtkSGXRDo96H3bybIf2SsQh8ScI=" 
+      ];
     };
 
     # gc = {  # Nix Garbage Collector
@@ -66,6 +69,8 @@
     options bluetooth disable_ertm=1
   ''; # temp bluetooth fix?
 
+  hardware.rtl-sdr.enable = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
@@ -106,6 +111,7 @@
       "disk"
       "scanner"
       "lp"
+      "plugdev"
     ];
   };
   # users.mutableUsers = false;
@@ -119,7 +125,8 @@
     nixfmt
     fastfetch
     git
-    wl-clipboard-rs
+    wl-clipboard
+    wl-clip-persist
     ripgrep
     usbutils
     mako

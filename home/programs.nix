@@ -39,7 +39,7 @@ in
     kicad
     kdePackages.okular
     gimp3-with-plugins
-    affinity-v3
+    #affinity-v3
     vlc
     mpv
     vscode
@@ -52,6 +52,7 @@ in
     #stablePkgs."saleae-logic-2"
     saleae-logic-2
     easyroam-connect-desktop
+    gnuradio
 
 
 ### audio and DAW
