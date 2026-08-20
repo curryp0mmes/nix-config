@@ -7,6 +7,7 @@
       configurationLimit = 6;
     };
   };
+  theme.wuespace-plymouth.enable = true;
   boot.plymouth = {
     enable = true;
   };

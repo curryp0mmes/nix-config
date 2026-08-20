@@ -7,28 +7,37 @@
     vimAlias = true;
     viAlias = true;
 
+    opts = {
+      number = true;
+      relativenumber = true;
+      mouse = "a";
+      showmode = false;
+      signcolumn = "yes";
+      termguicolors = true;
+      updatetime = 250;
+      timeoutlen = 400;
+      splitright = true;
+      splitbelow = true;
+      ignorecase = true;
+      smartcase = true;
+      wrap = false;
+      cursorline = true;
+      scrolloff = 8;
+      tabstop = 2;
+      shiftwidth = 2;
+      softtabstop = 2;
+      expandtab = true;
+      smartindent = true;
+      clipboard = "unnamedplus";
+    };
+
     extraPackages = with pkgs; [
-      bash-language-server
-      pyright
-      basedpyright
-      lua-language-server
       stylua
       ripgrep
       lazygit
-      beancount-language-server
-      gopls
-      go
-      rust-analyzer
-      rustfmt
-      taplo
-      nil
-      vscode-langservers-extracted
-      yaml-language-server
-      marksman
-      ruff
-      lua51Packages.tiktoken_core
       gnumake
-      python3Packages.jedi-language-server
+      lua51Packages.tiktoken_core
+      fd
     ];
 
     extraPlugins = with pkgs.vimPlugins; [
@@ -55,9 +64,10 @@
     ];
 
     plugins = {
+      direnv.enable = true;
+
       treesitter = {
         enable = true;
-
         settings = {
           indent = {
             enable = true;
@@ -82,35 +92,123 @@
           lookahead = true;
         };
       };
+
+      lsp = {
+        enable = true;
+        servers = {
+          basedpyright = {
+            enable = true;
+            extraOptions = {
+              before_init = {
+                __raw = ''
+                  function(params, config)
+                    local function get_python_path(root_dir)
+                      if vim.env.VIRTUAL_ENV and vim.fn.executable(vim.env.VIRTUAL_ENV .. "/bin/python") == 1 then
+                        return vim.env.VIRTUAL_ENV .. "/bin/python"
+                      end
+
+                      local cwd = root_dir or vim.fn.getcwd()
+                      local candidates = {
+                        cwd .. "/.venv/bin/python",
+                        cwd .. "/venv/bin/python",
+                        cwd .. "/.devenv/state/venv/bin/python",
+                        cwd .. "/.direnv/python-venv/bin/python",
+                      }
+
+                      for _, path in ipairs(candidates) do
+                        if vim.fn.executable(path) == 1 then
+                          return path
+                        end
+                      end
+
+                      local path_python = vim.fn.exepath("python3")
+                      if path_python ~= "" then
+                        return path_python
+                      end
+
+                      return nil
+                    end
+
+                    local root = config.root_dir or (params.rootUri and vim.uri_to_fname and vim.uri_to_fname(params.rootUri)) or params.rootPath or vim.fn.getcwd()
+                    local py_path = get_python_path(root)
+                    if py_path then
+                      config.settings = config.settings or {}
+                      config.settings.python = config.settings.python or {}
+                      config.settings.python.pythonPath = py_path
+                      config.settings.basedpyright = config.settings.basedpyright or {}
+                      config.settings.basedpyright.analysis = config.settings.basedpyright.analysis or {}
+                      config.settings.basedpyright.analysis.pythonPath = py_path
+                    end
+                  end
+                '';
+              };
+            };
+            settings = {
+              basedpyright = {
+                analysis = {
+                  autoSearchPaths = true;
+                  useLibraryCodeForTypes = true;
+                  diagnosticMode = "workspace";
+                  typeCheckingMode = "standard";
+                };
+              };
+              python = {
+                analysis = {
+                  autoSearchPaths = true;
+                  useLibraryCodeForTypes = true;
+                  diagnosticMode = "workspace";
+                };
+              };
+            };
+          };
+          ruff.enable = true;
+          nil_ls.enable = true;
+          lua_ls = {
+            enable = true;
+            settings = {
+              Lua = {
+                diagnostics = { globals = [ "vim" ]; };
+                workspace = { checkThirdParty = false; };
+                completion = { callSnippet = "Replace"; };
+              };
+            };
+          };
+          gopls.enable = true;
+          rust_analyzer = {
+            enable = true;
+            installCargo = false;
+            installRustc = false;
+            settings = {
+              rust-analyzer = {
+                cargo = { allFeatures = true; };
+                check = { command = "clippy"; };
+              };
+            };
+          };
+          bashls.enable = true;
+          jsonls.enable = true;
+          marksman.enable = true;
+          taplo.enable = true;
+          yamlls.enable = true;
+          beancount.enable = true;
+        };
+
+        keymaps.lspBuf = {
+          gd = "definition";
+          gD = "declaration";
+          gr = "references";
+          gi = "implementation";
+          K = "hover";
+          "<leader>rn" = "rename";
+          "<leader>ca" = "code_action";
+          "<leader>cf" = "format";
+        };
+      };
     };
 
     extraConfigLua = ''
       vim.g.mapleader = " "
       vim.g.maplocalleader = " "
-
-      local opt = vim.opt
-      opt.number = true
-      opt.relativenumber = true
-      opt.mouse = "a"
-      opt.showmode = false
-      opt.signcolumn = "yes"
-      opt.termguicolors = true
-      opt.updatetime = 250
-      opt.timeoutlen = 400
-      opt.splitright = true
-      opt.splitbelow = true
-      opt.ignorecase = true
-      opt.smartcase = true
-      opt.wrap = false
-      opt.cursorline = true
-      opt.scrolloff = 8
-      opt.tabstop = 2
-      opt.shiftwidth = 2
-      opt.softtabstop = 2
-      opt.expandtab = true
-      opt.smartindent = true
-      opt.clipboard = "unnamedplus"
-      opt.completeopt = { "menu", "menuone", "noselect" }
 
       local map = vim.keymap.set
       map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
@@ -242,25 +340,9 @@
       map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
       map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help" })
 
-
-
-      local map = vim.keymap.set
-      local opts = { noremap = true, silent = true }
-
-      map("n", "<leader>aa", "<cmd>AvanteToggle<cr>", vim.tbl_extend("force", opts, { desc = "Avante: show sidebar" }))
-      map("n", "<leader>a?", "<cmd>AvanteSwitchProvider<cr>", vim.tbl_extend("force", opts, { desc = "Avante: select model" }))
-      map("n", "<leader>an", "<cmd>AvanteAsk<cr>", vim.tbl_extend("force", opts, { desc = "Avante: new ask" }))
-      map("n", "<leader>ae", "<cmd>AvanteEdit<cr>", vim.tbl_extend("force", opts, { desc = "Avante: edit selected blocks" }))
-      map("n", "<leader>aS", "<cmd>AvanteStop<cr>", vim.tbl_extend("force", opts, { desc = "Avante: stop current AI request" }))
-      map("n", "<leader>ah", "<cmd>AvanteHistory<cr>", vim.tbl_extend("force", opts, { desc = "Avante: select chat history" }))
-
       local cmp = require("cmp")
       local lspkind = require("lspkind")
       local luasnip = require("luasnip")
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local has_new_lsp_api = vim.lsp ~= nil
-        and type(vim.lsp.enable) == "function"
-        and (type(vim.lsp.config) == "function" or type(vim.lsp.config) == "table")
 
       require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -320,88 +402,71 @@
         },
       })
 
-      local on_attach = function(_, bufnr)
-        local lsp_map = function(mode, lhs, rhs, desc)
-          vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+      -- Signature help auto-attach
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          local bufnr = args.buf
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client then
+            require("lsp_signature").on_attach({
+              bind = true,
+              hint_enable = false,
+              handler_opts = { border = "rounded" },
+              floating_window = true,
+            }, bufnr)
+          end
+        end,
+      })
+
+      -- Python Virtual Environment Resolution helper for direnv updates
+      local function get_python_path(root_dir)
+        if vim.env.VIRTUAL_ENV and vim.fn.executable(vim.env.VIRTUAL_ENV .. "/bin/python") == 1 then
+          return vim.env.VIRTUAL_ENV .. "/bin/python"
         end
 
-        lsp_map("n", "gd", vim.lsp.buf.definition, "Go to definition")
-        lsp_map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
-        lsp_map("n", "gr", vim.lsp.buf.references, "References")
-        lsp_map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
-        lsp_map("n", "K", vim.lsp.buf.hover, "Hover docs")
-        lsp_map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
-        lsp_map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code action")
-        lsp_map("n", "<leader>cf", function()
-          vim.lsp.buf.format({ async = true })
-        end, "Format file")
-        lsp_map("i", "<C-k>", vim.lsp.buf.signature_help, "Signature help")
+        local cwd = root_dir or vim.fn.getcwd()
+        local candidates = {
+          cwd .. "/.venv/bin/python",
+          cwd .. "/venv/bin/python",
+          cwd .. "/.devenv/state/venv/bin/python",
+          cwd .. "/.direnv/python-venv/bin/python",
+        }
 
-        require("lsp_signature").on_attach({
-          bind = true,
-          hint_enable = false,
-          handler_opts = { border = "rounded" },
-          floating_window = true,
-        }, bufnr)
-      end
-
-      local function can_run(cmd)
-        return vim.fn.executable(cmd) == 1
-      end
-
-      local servers = {
-        bashls = { cmd = "bash-language-server" },
-        beancount = { cmd = "beancount-language-server" },
-        gopls = { cmd = "gopls" },
-        jsonls = { cmd = "vscode-json-language-server" },
-        lua_ls = {
-          cmd = "lua-language-server",
-          settings = {
-            Lua = {
-              diagnostics = { globals = { "vim" } },
-              workspace = { checkThirdParty = false },
-              completion = { callSnippet = "Replace" },
-            },
-          },
-        },
-        marksman = { cmd = "marksman" },
-        nil_ls = { cmd = "nil" },
-        ruff = { cmd = "ruff" },
-        rust_analyzer = {
-          cmd = "rust-analyzer",
-          settings = {
-            ["rust-analyzer"] = {
-              cargo = { allFeatures = true },
-              check = { command = "clippy" },
-            },
-          },
-        },
-        taplo = { cmd = "taplo" },
-        yamlls = { cmd = "yaml-language-server" },
-      }
-
-      if can_run("basedpyright-langserver") then
-        servers.basedpyright = { cmd = "basedpyright-langserver" }
-      elseif can_run("pyright-langserver") then
-        servers.pyright = { cmd = "pyright-langserver" }
-      end
-
-      for server, server_opts in pairs(servers) do
-        if can_run(server_opts.cmd) then
-          server_opts.cmd = nil
-          server_opts.capabilities = capabilities
-          server_opts.on_attach = on_attach
-          if has_new_lsp_api then
-            vim.lsp.config(server, server_opts)
-            vim.lsp.enable(server)
-          else
-            local ok_lspconfig, lspconfig = pcall(require, "lspconfig")
-            if ok_lspconfig then
-              lspconfig[server].setup(server_opts)
-            end
+        for _, path in ipairs(candidates) do
+          if vim.fn.executable(path) == 1 then
+            return path
           end
         end
+
+        local path_python = vim.fn.exepath("python3")
+        if path_python ~= "" then
+          return path_python
+        end
+
+        return nil
       end
+
+      -- Update basedpyright python path dynamically when direnv switches environment
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "DirenvLoaded",
+        desc = "Update basedpyright python path on direnv load",
+        callback = function()
+          local clients = vim.lsp.get_clients({ name = "basedpyright" })
+          for _, client in ipairs(clients) do
+            local py_path = get_python_path(client.config.root_dir)
+            if py_path then
+              client.config.settings = client.config.settings or {}
+              client.config.settings.python = client.config.settings.python or {}
+              client.config.settings.python.pythonPath = py_path
+              if client.config.settings.basedpyright then
+                client.config.settings.basedpyright.analysis = client.config.settings.basedpyright.analysis or {}
+                client.config.settings.basedpyright.analysis.pythonPath = py_path
+              end
+              client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+            end
+          end
+        end,
+      })
     '';
   };
 }

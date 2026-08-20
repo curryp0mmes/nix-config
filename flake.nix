@@ -67,5 +67,10 @@
       url = "git+file:///home/simon/Code/rust/wfb_rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    wuespace-plymouth = {
+      url = "git+file:///home/simon/Code/other/wuespace-plymouth-theme";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

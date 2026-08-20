@@ -49,6 +49,7 @@ in
     jellyfin-media-player
     betaflight-configurator
     telegram-desktop
+    signal-desktop
     #stablePkgs."saleae-logic-2"
     saleae-logic-2
     easyroam-connect-desktop
@@ -66,6 +67,7 @@ in
     python314Packages.pip
     borgbackup
     simple-mtpfs
+    go-mtpfs
     udiskie
     nmap
     tldr

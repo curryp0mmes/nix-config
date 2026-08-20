@@ -11,4 +11,10 @@
     pkgs.gnome-keyring
     pkgs.gcr
   ];
+
+  # Enable standard OpenSSH agent for FIDO2/ed25519-sk hardware key (Nitrokey) support
+  programs.ssh.startAgent = true;
+
+  # Disable gcr-ssh-agent which does not support FIDO2/ed25519-sk keys and conflicts with OpenSSH agent
+  services.gnome.gcr-ssh-agent.enable = false;
 }

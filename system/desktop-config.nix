@@ -112,5 +112,6 @@
     fira-code-symbols
     nerd-fonts.fira-code
     orbitron
+    chakra-petch
   ];
 }

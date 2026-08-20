@@ -7,3 +7,8 @@ desc = "run lazygit"
 on   = [ "g", "m" ]
 run  = "plugin mount-tabs"
 desc = "Open all mount points in tabs"
+
+[[mgr.prepend_keymap]]
+on   = [ "M" ]
+run  = "plugin mount"
+desc = "Open mount/unmount menu"

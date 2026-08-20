@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  # Nitrokey support & Smartcard service
+  hardware.nitrokey.enable = true;
+  services.pcscd.enable = true;
+
   # Udev rules
   services.udev = {
     packages = [

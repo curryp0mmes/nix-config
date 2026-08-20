@@ -33,6 +33,7 @@
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
           inputs.wfb-rs.nixosModules.default
+          inputs.wuespace-plymouth.nixosModules.default
 
           {
             home-manager = {
@@ -59,6 +60,7 @@
           inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2
           inputs.stylix.nixosModules.stylix
           inputs.wfb-rs.nixosModules.default
+          inputs.wuespace-plymouth.nixosModules.default
 
           {
             home-manager = {

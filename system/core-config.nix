@@ -39,7 +39,12 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
-  nixpkgs.overlays = [ inputs.affinity-nix.overlays.default ];
+  nixpkgs.overlays = [
+    inputs.affinity-nix.overlays.default
+    (final: prev: {
+      chakra-petch = final.callPackage ../pkgs/chakra-petch.nix { };
+    })
+  ];
   programs.nh = {
     enable = true;
     clean.enable = true;
@@ -141,6 +146,8 @@
     }))
     libxcb-cursor
     kdePackages.polkit-kde-agent-1
+    libfido2
+    pynitrokey
   ];
   services.flatpak.enable = true;
 

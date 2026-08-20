@@ -23,7 +23,10 @@ in
   home.username = "simon";
   home.homeDirectory = "/home/simon";
 
-  home.pointerCursor.enable = true;
+  home.pointerCursor = {
+    enable = true;
+    gtk.enable = true;
+  };
 
   programs.git = {
     enable = true;
@@ -61,6 +64,13 @@ in
     enable = true;
     automount = true;
     notify = true;
+    settings = {
+        program_options = {
+            file_manager = "${pkgs.yazi}/bin/yazi";
+            post_mount_command = "ln -s '{mount_path}' '/mnt/{device_presentation}'";
+            post_unmount_command = "rm '/mnt/{device_presentation}'";
+        };
+    };
   };
 
   # playerctl
