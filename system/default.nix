@@ -14,9 +14,11 @@
       # get the basic config to build on top of
       # inherit (import "${self}/system") desktop laptop;
 
+      username = "simon";
+
       # get these into the module system
       specialArgs = {
-        inherit inputs self;
+        inherit inputs self username;
       };
     in
     {

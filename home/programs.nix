@@ -10,7 +10,6 @@ let
     config.allowUnfree = true;
   };
 
-  antigravity = pkgs.callPackage ./programs/antigravity.nix { };
   bambu-studio = pkgs.callPackage ./programs/bambu-studio.nix { };
 
   playwright-mcp = pkgs.writeShellScriptBin "playwright-mcp" ''
@@ -101,12 +100,10 @@ in
 
 
 ### AI stuff
-    antigravity
     antigravity-cli
     copilot-language-server
-    opencode
-    opencode-desktop
     playwright-mcp
     chromium
+    claude-code
   ];
 }

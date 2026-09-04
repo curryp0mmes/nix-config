@@ -72,5 +72,7 @@
       url = "git+file:///home/simon/Code/other/wuespace-plymouth-theme";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
 }

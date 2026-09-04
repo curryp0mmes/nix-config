@@ -12,7 +12,6 @@
     ./modules/easyroam.nix
     #./modules/nvidia.nix
     ./modules/vm.nix
-    #./modules/hyprland.nix
     ./modules/niri.nix
     ./modules/keyring.nix
     ./modules/stylix.nix
@@ -54,7 +53,6 @@
     settings = rec {
       initial_session = {
         command = "zsh -lc 'niri-session'";
-        # command = "zsh -lc 'mkdir -p ~/.local/share/hypr && Hyprland >~/.local/share/hypr/hyprland.log 2>&1'";
         user = "simon";
       };
       default_session = initial_session;

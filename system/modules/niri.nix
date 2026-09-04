@@ -37,17 +37,8 @@
   #programs.hyprlock.enable = true;
   #security.pam.services.hyprlock = { };
 
-  # Enable waybar
-  # programs.waybar.enable = true;
-
   services.dbus.enable = true;
 
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
-    jack.enable = true;
-  };
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [

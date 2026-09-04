@@ -15,6 +15,7 @@ Personal NixOS configuration using flakes and home-manager for reproducible syst
 └── system/            # System-level configurations
     ├── core-config.nix      # Base system settings
     ├── desktop-config.nix   # Desktop environment
+    ├── modules/              # Feature modules (niri, virtualisation, stylix, ...)
     └── devices/             # Hardware-specific configs
 ```
 
@@ -22,8 +23,7 @@ Personal NixOS configuration using flakes and home-manager for reproducible syst
 
 ### Window Manager
 - niri (scrolling window manager)
-- waybar (status bar)
-- walker (application launcher)
+- noctalia (bar, shell, and session widgets)
 - mako (notification daemon)
 
 ### Terminal Environment

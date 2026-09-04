@@ -143,10 +143,6 @@ in
       source = createSymlink "niri";
       recursive = true;
     };
-    ".config/waybar" = {
-      source = createSymlink "waybar";
-      recursive = true;
-    };
     ".config/wpaperd" = {
       source = createSymlink "wpaperd";
       recursive = true;

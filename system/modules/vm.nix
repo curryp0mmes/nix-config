@@ -1,8 +1,4 @@
-{ config, pkgs, ... }:
-
-let
-  username = "simon"; # CHANGE THIS to your actual Linux username
-in
+{ config, pkgs, username, ... }:
 {
 
   virtualisation.waydroid.enable = true;

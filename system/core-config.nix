@@ -41,6 +41,7 @@
   nixpkgs.config.allowBroken = true;
   nixpkgs.overlays = [
     inputs.affinity-nix.overlays.default
+    inputs.claude-code.overlays.default
     (final: prev: {
       chakra-petch = final.callPackage ./modules/chakra-petch-font.nix { };
       maven-pro = final.callPackage ./modules/maven-pro-font.nix { };
