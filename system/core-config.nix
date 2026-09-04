@@ -42,7 +42,8 @@
   nixpkgs.overlays = [
     inputs.affinity-nix.overlays.default
     (final: prev: {
-      chakra-petch = final.callPackage ../pkgs/chakra-petch.nix { };
+      chakra-petch = final.callPackage ./modules/chakra-petch-font.nix { };
+      maven-pro = final.callPackage ./modules/maven-pro-font.nix { };
     })
   ];
   programs.nh = {
@@ -218,6 +219,10 @@
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
+    publish = {
+      enable = true;
+      userServices = true;
+    };
   };
 
   # This value determines the NixOS release from which the default

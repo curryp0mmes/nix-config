@@ -74,6 +74,7 @@
   xdg.mime = {
     enable = true;
     defaultApplications = {
+      "inode/directory" = "yazi.desktop";
       "application/pdf" = "firefox.desktop";
       "application/html" = "firefox.desktop";
     };

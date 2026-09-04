@@ -12,6 +12,10 @@ let
 
   antigravity = pkgs.callPackage ./programs/antigravity.nix { };
   bambu-studio = pkgs.callPackage ./programs/bambu-studio.nix { };
+
+  playwright-mcp = pkgs.writeShellScriptBin "playwright-mcp" ''
+    exec ${pkgs.nodejs_24}/bin/npx -y @playwright/mcp@latest --executable-path ${pkgs.chromium}/bin/chromium "$@"
+  '';
 in
 {
   home.packages = with pkgs; [
@@ -39,7 +43,7 @@ in
     kicad
     kdePackages.okular
     gimp3-with-plugins
-    #affinity-v3
+    #    affinity-v3
     vlc
     mpv
     vscode
@@ -54,6 +58,8 @@ in
     saleae-logic-2
     easyroam-connect-desktop
     gnuradio
+    kdePackages.glaxnimate
+    inkscape
 
 
 ### audio and DAW
@@ -75,6 +81,8 @@ in
     wiremix
     bluetuith
     gh
+    glib
+    sshfs
 
 
 ### lazyvim stuff
@@ -96,5 +104,9 @@ in
     antigravity
     antigravity-cli
     copilot-language-server
+    opencode
+    opencode-desktop
+    playwright-mcp
+    chromium
   ];
 }

@@ -49,6 +49,7 @@ in
     configPath = ".mozilla/firefox";
   };
 
+
   # Call noctalia lock on lid close
   # services.swayidle = {
   #   enable = true;
@@ -76,6 +77,11 @@ in
   # playerctl
   services.playerctld.enable = true;
 
+  # kdeconnect
+  services.kdeconnect = {
+    enable = true;
+  };
+
   # direnv
   programs.direnv = {
     enable = true;
@@ -87,7 +93,7 @@ in
     enable = true;
     plugins = [
       pkgs.obs-studio-plugins.wlrobs
-      pkgs.obs-studio-plugins.obs-shaderfilter
+      #pkgs.obs-studio-plugins.obs-shaderfilter
     ];
   };
 
@@ -97,12 +103,28 @@ in
     enable = true;
   };
   #gtk.gtk4.theme = config.gtk.theme;
-  # xdg.mimeApps = {
-  #   enable = true;
-  #   defaultApplications = {
-  #     "application/pdf" = [ "okular.desktop" ]; # Or "firefox.desktop"
-  #   };
-  # };
+  xdg.desktopEntries.yazi = {
+    name = "Yazi";
+    genericName = "File Manager";
+    comment = "Blazing fast terminal file manager";
+    exec = "kitty yazi %u";
+    icon = "yazi";
+    terminal = false;
+    mimeType = [ "inode/directory" ];
+    categories = [ "System" "FileManager" "ConsoleOnly" ];
+  };
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "inode/directory" = [ "yazi.desktop" ];
+      "application/pdf" = [ "firefox.desktop" ];
+      "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop" ];
+      "x-scheme-handler/tonsite" = [ "org.telegram.desktop.desktop" ];
+      "x-scheme-handler/discord-455712169795780630" = [ "discord-455712169795780630.desktop" ];
+      "x-scheme-handler/rpi-imager" = [ "com.raspberrypi.rpi-imager-uri-handler.desktop" ];
+    };
+  };
 
   home.file = {
     # ".config" = {
@@ -131,6 +153,10 @@ in
     };
     ".config/yazi" = {
       source = createSymlink "yazi";
+      recursive = true;
+    };
+    ".config/opencode" = {
+      source = createSymlink "opencode";
       recursive = true;
     };
   };

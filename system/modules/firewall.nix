@@ -1,6 +1,9 @@
 {
   networking.firewall.checkReversePath = false;
   # aditionall firewall settings
+  #vm
+  networking.firewall.trustedInterfaces = [ "virbr0" ];
+
   networking.nftables.enable = true;
   networking.firewall = {
     allowedTCPPorts = [

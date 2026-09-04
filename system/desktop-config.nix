@@ -82,6 +82,8 @@
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
 
+  programs.kdeconnect.enable = true;
+
   # services.tlp = {
   #   enable = true;
   #   settings = {
@@ -113,5 +115,7 @@
     nerd-fonts.fira-code
     orbitron
     chakra-petch
+    maven-pro
+    roboto
   ];
 }

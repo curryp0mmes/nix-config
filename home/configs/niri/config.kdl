@@ -9,7 +9,9 @@ spawn-sh-at-startup "dbus-update-activation-environment --systemd --all"
 spawn-sh-at-startup "noctalia"
 spawn-sh-at-startup "Telegram -startintray"
 spawn-sh-at-startup "wl-clip-persist --clipboard regular"
-spawn-sh-at-startup "xdg-open 'obsidian://open?vault=todos-and-personal&file=TODOs%20August%202026'"
+spawn-sh-at-startup "wl-paste --type text --watch ~/.config/niri/clip-notify.sh text"
+spawn-sh-at-startup "wl-paste --type image --watch ~/.config/niri/clip-notify.sh image"
+spawn-sh-at-startup "xdg-open 'obsidian://open?vault=todos-and-personal&file=TODOs%20September%202026'"
 
 switch-events {
   lid-close { spawn "noctalia" "msg" "session" "lock"; }

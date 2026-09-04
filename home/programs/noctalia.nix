@@ -7,7 +7,7 @@
         default = {
           capsule = false;
           center = [ "workspaces" ];
-          end = [ "tray" "caffeine" "battery" "session" "clock" ];
+          end = [ "tray" "status" "caffeine" "battery" "session" "clock" ];
           margin_ends = 0;
           padding = 10;
           position = "top";
@@ -86,7 +86,7 @@
               show_caps_lock = true;
               show_keyboard_layout = true;
               show_login_button = true;
-              show_password_hint = true;
+              show_unlock_hint = true;
             };
           };
         };
@@ -98,6 +98,10 @@
 
       osd = {
         background_opacity = 1.0;
+      };
+
+      plugins = {
+        enabled = ["icefish/phone-operate"];
       };
 
       shell = {
@@ -158,11 +162,16 @@
         workspaces = {
           active_pill_size = 3.0;
           anchor = true;
-          display = "none";
+          show_labels = false;
           empty_color = "on_surface";
           occupied_color = "on_surface_variant";
           pill_scale = 0.8;
           type = "workspaces";
+        };
+
+        # KDE Connect
+        status = {
+          type = "icefish/phone-operate:status";
         };
       };
     };
