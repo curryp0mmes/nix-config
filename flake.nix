@@ -63,13 +63,13 @@
     };
 
     wfb-rs = {
-      #url = "github:s2outh/wfb-rs";
-      url = "git+file:///home/simon/Code/rust/wfb_rs";
+      url = "github:s2outh/wfb-rs";
+      #url = "git+file:///home/simon/Code/rust/wfb_rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     wuespace-plymouth = {
-      url = "git+file:///home/simon/Code/other/wuespace-plymouth-theme";
+      url = "github:curryp0mmes/nix-wuespace-plymouth";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

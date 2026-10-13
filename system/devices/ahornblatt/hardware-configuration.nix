@@ -16,83 +16,58 @@
 
   networking.hostName = "ahornblatt"; # Define your hostname.
 
-  boot.initrd.availableKernelModules = [
-    "nvme"
-    "xhci_pci_renesas"
-    "xhci_pci"
-    "usb_storage"
-    "sd_mod"
-    "rtsx_pci_sdmmc"
-  ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/8ca917a4-a3f1-4f3a-a55e-e230ac79f503";
+    device = "/dev/mapper/crypted-nixos";
     fsType = "btrfs";
     options = [
-      "subvol=root"
+      "subvol=@root"
       "compress=zstd"
     ];
   };
 
-  boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/cf0601fb-7a2c-49c3-9c27-78d3227e7c5d";
+  boot.initrd.luks.devices."crypted-nixos".device = "/dev/disk/by-uuid/c96e948e-435c-4c02-952b-e1c2d74c96f6";
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/8ca917a4-a3f1-4f3a-a55e-e230ac79f503";
+    device = "/dev/mapper/crypted-nixos";
     fsType = "btrfs";
     options = [
-      "subvol=home"
+      "subvol=@home"
       "compress=zstd"
     ];
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/8ca917a4-a3f1-4f3a-a55e-e230ac79f503";
+    device = "/dev/mapper/crypted-nixos";
     fsType = "btrfs";
     options = [
-      "subvol=nix"
+      "subvol=@nix"
       "compress=zstd"
-      "noatime"
     ];
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/3980-733C";
+    device = "/dev/disk/by-uuid/D21C-7FB7";
     fsType = "vfat";
     options = [
       "fmask=0022"
       "dmask=0022"
     ];
   };
-  fileSystems."/swap" = {
-    device = "/dev/disk/by-uuid/8ca917a4-a3f1-4f3a-a55e-e230ac79f503";
-    fsType = "btrfs";
-    options = [ "noatime" ];
-  };
-  swapDevices = [
-    {
-      device = "/swap/swapfile";
-      size = 8 * 1024;
-    }
-  ];
+  swapDevices = [ ];
 
   services.btrfs.autoScrub = {
     enable = true;
     interval = "monthly";
     fileSystems = [ "/" ];
   };
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp2s0f0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp6s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wwan0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.npu.enable = true;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

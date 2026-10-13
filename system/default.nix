@@ -86,7 +86,7 @@
           ./desktop-config.nix
           inputs.nix-easyroam.nixosModules.nix-easyroam
           inputs.home-manager.nixosModules.home-manager
-          inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2
+          inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14s
           inputs.stylix.nixosModules.stylix
           inputs.wuespace-plymouth.nixosModules.default
 
