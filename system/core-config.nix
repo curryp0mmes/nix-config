@@ -155,6 +155,7 @@
     kdePackages.polkit-kde-agent-1
     libfido2
     pynitrokey
+    jq
   ];
   services.flatpak.enable = true;
 

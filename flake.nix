@@ -19,6 +19,11 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.2.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-easyroam = {
       url = "github:einetuer/nix-easyroam";
     };

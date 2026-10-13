@@ -14,6 +14,7 @@
     ./modules/vm.nix
     ./modules/niri.nix
     ./modules/keyring.nix
+    ./modules/greetd-autologin.nix
     ./modules/stylix.nix
   ];
   # most current kernel package
@@ -41,18 +42,6 @@
 
   # disk services
   services.udisks2.enable = true;
-
-  # Enable greetd
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "zsh -lc 'niri-session'";
-        user = "simon";
-      };
-      default_session = initial_session;
-    };
-  };
 
   services.fwupd.enable = true;
   services.upower.enable = true;

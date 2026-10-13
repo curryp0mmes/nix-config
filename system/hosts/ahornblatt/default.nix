@@ -3,6 +3,9 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/fingerprint.nix
+    ../../modules/secure-boot.nix
+    ../../modules/windows-dualboot.nix
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14s
   ];
 
