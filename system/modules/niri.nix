@@ -66,8 +66,10 @@
     enable = true;
     defaultApplications = {
       "inode/directory" = "yazi.desktop";
-      "application/pdf" = "firefox.desktop";
-      "application/html" = "firefox.desktop";
+      "application/pdf" = "okularApplication_pdf.desktop";
+      "text/html" = "firefox.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
     };
   };
   environment.variables.TERMFILECHOOSER = "/etc/yazi-file-chooser.sh";

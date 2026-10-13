@@ -1,7 +1,9 @@
 {
   pkgs,
+  lib,
   inputs,
   config,
+  osConfig,
   ...
 }:
 let
@@ -35,8 +37,13 @@ in
         email = "simonausbs@gmail.com";
         name = "Simon";
       };
+      init.defaultBranch = "main";
       pull.rebase = true;
     };
+  };
+
+  programs.rbw = {
+    enable = true;
   };
 
   programs.firefox = {
@@ -73,6 +80,22 @@ in
         };
     };
   };
+
+  # OnlyOffice ignores fontconfig and won't follow symlinks into the store,
+  # so copy the system fonts into ~/.local/share/fonts
+  home.activation.onlyofficeFonts = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    dir="$HOME/.local/share/fonts/nix"
+    rm -rf "$dir"
+    mkdir -p "$dir"
+    for pkg in ${lib.concatStringsSep " " (lib.unique (map toString osConfig.fonts.packages))}; do
+      [ -d "$pkg/share/fonts" ] && find -L "$pkg/share/fonts" -type f \
+        \( -iname '*.ttf' -o -iname '*.otf' -o -iname '*.ttc' \) \
+        -exec cp -f {} "$dir/" \;
+    done
+    chmod -R u+w "$dir"
+    # force OnlyOffice to rebuild its font cache
+    rm -rf "$HOME/.local/share/onlyoffice/desktopeditors/data/fonts"
+  '';
 
   # playerctl
   services.playerctld.enable = true;
@@ -118,7 +141,10 @@ in
     enable = true;
     defaultApplications = {
       "inode/directory" = [ "yazi.desktop" ];
-      "application/pdf" = [ "firefox.desktop" ];
+      "application/pdf" = [ "okularApplication_pdf.desktop" ];
+      "text/html" = [ "firefox.desktop" ];
+      "x-scheme-handler/http" = [ "firefox.desktop" ];
+      "x-scheme-handler/https" = [ "firefox.desktop" ];
       "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop" ];
       "x-scheme-handler/tonsite" = [ "org.telegram.desktop.desktop" ];
       "x-scheme-handler/discord-455712169795780630" = [ "discord-455712169795780630.desktop" ];

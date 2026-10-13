@@ -10,9 +10,7 @@ let
     config.allowUnfree = true;
   };
 
-  bambu-studio = pkgs.callPackage ./programs/bambu-studio.nix { };
-
-  playwright-mcp = pkgs.writeShellScriptBin "playwright-mcp" ''
+  playwright-mcp =pkgs.writeShellScriptBin "playwright-mcp" ''
     exec ${pkgs.nodejs_24}/bin/npx -y @playwright/mcp@latest --executable-path ${pkgs.chromium}/bin/chromium "$@"
   '';
 in
@@ -33,15 +31,15 @@ in
     keepassxc
     thunderbird
     simple-scan
-    gqrx
+    sdrangel
     stablePkgs.freecad
     orca-slicer
-    bambu-studio
     #kdePackages.kdenlive
     discord
     kicad
     kdePackages.okular
-    gimp3-with-plugins
+    # gimp-with-plugins
+    gimp
     #    affinity-v3
     vlc
     mpv
@@ -56,14 +54,13 @@ in
     #stablePkgs."saleae-logic-2"
     saleae-logic-2
     easyroam-connect-desktop
-    gnuradio
     kdePackages.glaxnimate
-    inkscape
+    #inkscape
 
 
 ### audio and DAW
     vital
-    zrythm
+    #zrythm
     mixxx
 
 
@@ -71,7 +68,6 @@ in
     python314
     python314Packages.pip
     borgbackup
-    simple-mtpfs
     go-mtpfs
     udiskie
     nmap
@@ -82,7 +78,7 @@ in
     gh
     glib
     sshfs
-
+    natscli
 
 ### lazyvim stuff
     lazygit

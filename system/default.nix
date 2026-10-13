@@ -76,5 +76,31 @@
           }
         ];
       };
+
+      ahornblatt = nixosSystem {
+        inherit specialArgs;
+        modules = [
+          ./devices/ahornblatt/hardware-configuration.nix
+          ./modules/systemd-boot.nix
+          ./core-config.nix
+          ./desktop-config.nix
+          inputs.nix-easyroam.nixosModules.nix-easyroam
+          inputs.home-manager.nixosModules.home-manager
+          inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2
+          inputs.stylix.nixosModules.stylix
+          inputs.wuespace-plymouth.nixosModules.default
+
+          {
+            home-manager = {
+              users.simon.imports = homeImports."simon" ++ [
+                inputs.nixvim.homeModules.nixvim
+              ];
+              extraSpecialArgs = specialArgs;
+              useGlobalPkgs = true;
+              useUserPackages = true;
+            };
+          }
+        ];
+      };
     };
 }

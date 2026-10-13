@@ -9,7 +9,7 @@
   };
   services.dbus.packages = [
     pkgs.gnome-keyring
-    pkgs.gcr
+    pkgs.gcr_3
   ];
 
   # Enable standard OpenSSH agent for FIDO2/ed25519-sk hardware key (Nitrokey) support

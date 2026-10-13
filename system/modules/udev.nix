@@ -12,6 +12,12 @@
       pkgs.mixxx
     ];
     extraRules = ''
+            # Fix integrated SD card reader (Realtek RTS522A, rtsx_pci) on the
+            # ThinkPad T14 (girlfriend-3): the driver's default runtime PM
+            # autosuspends the device into D3cold, and card insertion then
+            # fails to wake it back up, so inserted cards are never detected.
+            SUBSYSTEM=="pci", ATTR{vendor}=="0x10ec", ATTR{device}=="0x522a", ATTR{power/control}="on"
+
       			SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="5740", MODE="0666", GROUP="plugdev"
 
             SUBSYSTEM=="power_supply", KERNEL=="BAT0", \

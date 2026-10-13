@@ -39,6 +39,11 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
+  # betaflight-configurator bundles nwjs, which nixpkgs marks insecure
+  # (old Chrome with known CVEs). Accepted risk for a local drone-config tool.
+  nixpkgs.config.permittedInsecurePackages = [
+    "nwjs-0.102.1"
+  ];
   nixpkgs.overlays = [
     inputs.affinity-nix.overlays.default
     inputs.claude-code.overlays.default
@@ -179,6 +184,13 @@
     alsa.enable = true;
     pulse.enable = true;
     jack.enable = true;
+    # only let the PC act as audio source / audio gateway (for headphones),
+    # never as a speaker or hands-free unit for the phone (kdeconnect over bt)
+    wireplumber.extraConfig."51-bluez-roles" = {
+      "monitor.bluez.properties" = {
+        "bluez5.roles" = [ "a2dp_source" "hfp_ag" "hsp_ag" "bap_source" ];
+      };
+    };
   };
   services.gvfs.enable = true;
 
