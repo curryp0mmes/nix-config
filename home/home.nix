@@ -56,17 +56,6 @@ in
     configPath = ".mozilla/firefox";
   };
 
-
-  # Call noctalia lock on lid close
-  # services.swayidle = {
-  #   enable = true;
-  #   systemdTarget = "niri-session.target"; # Ensures it starts only when Niri is active
-  #   events = {
-  #     "before-sleep" = "noctalia-shell ipc call lockScreen lock";
-  #     "lock" = "noctalia-shell ipc call lockScreen lock";
-  #   };
-  # };
-
   # automatic disk mounting
   services.udiskie = {
     enable = true;

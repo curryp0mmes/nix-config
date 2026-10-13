@@ -64,14 +64,6 @@
     "f /sys/class/power_supply/BAT0/charge_control_end_threshold 0664 root battery_ctl - -"
   ];
 
-  # steam must be installed globally
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };
-
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
 

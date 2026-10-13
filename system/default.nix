@@ -7,12 +7,7 @@
 {
   flake.nixosConfigurations =
     let
-      # shorten paths
       inherit (inputs.nixpkgs.lib) nixosSystem;
-      mod = "${self}/system";
-
-      # get the basic config to build on top of
-      # inherit (import "${self}/system") desktop laptop;
 
       username = "simon";
 
@@ -20,87 +15,39 @@
       specialArgs = {
         inherit inputs self username;
       };
+
+      # everything shared between all machines lives here,
+      # machine specific stuff goes into ./hosts/<hostname>/default.nix
+      mkHost =
+        hostname:
+        nixosSystem {
+          inherit specialArgs;
+          modules = [
+            ./hosts/${hostname}
+            ./modules/systemd-boot.nix
+            ./core-config.nix
+            ./desktop-config.nix
+            inputs.nix-easyroam.nixosModules.nix-easyroam
+            inputs.home-manager.nixosModules.home-manager
+            inputs.stylix.nixosModules.stylix
+            inputs.wuespace-plymouth.nixosModules.default
+
+            {
+              home-manager = {
+                users.${username}.imports = homeImports.${username} ++ [
+                  inputs.nixvim.homeModules.nixvim
+                ];
+                extraSpecialArgs = specialArgs;
+                useGlobalPkgs = true;
+                useUserPackages = true;
+              };
+            }
+          ];
+        };
     in
-    {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      garnix = nixosSystem {
-        inherit specialArgs;
-        modules = [
-          ./devices/gigabyte/hardware-configuration.nix
-          ./modules/systemd-boot.nix
-          ./core-config.nix
-          ./desktop-config.nix
-          inputs.nix-easyroam.nixosModules.nix-easyroam
-          inputs.home-manager.nixosModules.home-manager
-          inputs.stylix.nixosModules.stylix
-          inputs.wfb-rs.nixosModules.default
-          inputs.wuespace-plymouth.nixosModules.default
-
-          {
-            home-manager = {
-              users.simon.imports = homeImports."simon" ++ [
-                inputs.nixvim.homeModules.nixvim
-              ];
-              extraSpecialArgs = specialArgs;
-              useGlobalPkgs = true;
-              useUserPackages = true;
-            };
-          }
-        ];
-      };
-
-      girlfriend-3 = nixosSystem {
-        inherit specialArgs;
-        modules = [
-          ./devices/thinkpad/hardware-configuration.nix
-          ./modules/systemd-boot.nix
-          ./core-config.nix
-          ./desktop-config.nix
-          inputs.nix-easyroam.nixosModules.nix-easyroam
-          inputs.home-manager.nixosModules.home-manager
-          inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2
-          inputs.stylix.nixosModules.stylix
-          inputs.wfb-rs.nixosModules.default
-          inputs.wuespace-plymouth.nixosModules.default
-
-          {
-            home-manager = {
-              users.simon.imports = homeImports."simon" ++ [
-                inputs.nixvim.homeModules.nixvim
-              ];
-              extraSpecialArgs = specialArgs;
-              useGlobalPkgs = true;
-              useUserPackages = true;
-            };
-          }
-        ];
-      };
-
-      ahornblatt = nixosSystem {
-        inherit specialArgs;
-        modules = [
-          ./devices/ahornblatt/hardware-configuration.nix
-          ./modules/systemd-boot.nix
-          ./core-config.nix
-          ./desktop-config.nix
-          inputs.nix-easyroam.nixosModules.nix-easyroam
-          inputs.home-manager.nixosModules.home-manager
-          inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14s
-          inputs.stylix.nixosModules.stylix
-          inputs.wuespace-plymouth.nixosModules.default
-
-          {
-            home-manager = {
-              users.simon.imports = homeImports."simon" ++ [
-                inputs.nixvim.homeModules.nixvim
-              ];
-              extraSpecialArgs = specialArgs;
-              useGlobalPkgs = true;
-              useUserPackages = true;
-            };
-          }
-        ];
-      };
-    };
+    inputs.nixpkgs.lib.genAttrs [
+      "garnix"
+      "girlfriend-3"
+      "ahornblatt"
+    ] mkHost;
 }

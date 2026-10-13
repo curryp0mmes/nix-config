@@ -27,7 +27,6 @@ in
     networkmanagerapplet
     #davinci-resolve
     nwg-displays
-    prismlauncher
     keepassxc
     thunderbird
     simple-scan
@@ -44,7 +43,6 @@ in
     vlc
     mpv
     vscode
-    dolphin-emu
     onlyoffice-desktopeditors
     obsidian
     jellyfin-media-player

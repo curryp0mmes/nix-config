@@ -15,8 +15,8 @@ Personal NixOS configuration using flakes and home-manager for reproducible syst
 └── system/            # System-level configurations
     ├── core-config.nix      # Base system settings
     ├── desktop-config.nix   # Desktop environment
-    ├── modules/              # Feature modules (niri, virtualisation, stylix, ...)
-    └── devices/             # Hardware-specific configs
+    ├── modules/             # Feature modules (niri, gaming, stylix, ...)
+    └── hosts/<hostname>/    # Per-machine config: hardware, opt-in modules, stateVersion
 ```
 
 ## Key Components
@@ -48,6 +48,11 @@ Desktop applications that I use on a daily basis
 
 - **garnix**: Old laptop (Gigabyte G5 gaming laptop)
 - **girlfriend-3**: Laptop system (ThinkPad T14 AMD Gen 2) (If you are wondering about the name, it is the only warm thing in my lap)
+- **ahornblatt**: ThinkPad T14s (no games)
+
+Shared config lives in `system/core-config.nix`, `system/desktop-config.nix` and `home/`.
+Each host opts into extra modules (e.g. `modules/gaming.nix`) in `system/hosts/<hostname>/default.nix`,
+which can also add per-host home-manager settings via `home-manager.users.simon`.
 
 ## System Features
 
