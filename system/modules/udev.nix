@@ -36,6 +36,14 @@
             
             # ftdi rule for EPOS4 70/15 
             SUBSYSTEMS=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="a8b0", GROUP="users", MODE="0666"
+
+            ### FPGA
+            # dfu-util
+            SUBSYSTEM=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="b1c0", MODE="0666"
+
+            # program_sram.py
+            SUBSYSTEM=="tty", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="b1c0", MODE="0666"
+
       		'';
     # 1. jumper t-lite
     # 2. charge control

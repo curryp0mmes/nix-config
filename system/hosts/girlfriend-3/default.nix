@@ -12,13 +12,24 @@
   home-manager.users.simon = {
     # rendered to ~/.config/niri-host/host.kdl, see home/modules/host-niri.nix
     host.niri = {
-      outputs."eDP-1" = {
-        scale = 1;
-        position = {
-          x = 0;
-          y = 0;
+      outputs = {
+        "eDP-1" = {
+          mode = "1920x1080@60.008";
+          scale = 1;
+          position = {
+            x = 0;
+            y = 0;
+          };
+          focusAtStartup = true;
         };
-        focusAtStartup = true;
+        "HDMI-A-1" = {
+          mode = "1920x1080@60.0";
+          scale = 1;
+          position = {
+            x = 1920;
+            y = 0;
+          };
+        };
       };
       autostart = [ "xdg-open 'obsidian://open?vault=todos-and-personal&file=TODOs%20September%202026'" ];
     };

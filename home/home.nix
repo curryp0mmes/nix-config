@@ -16,6 +16,7 @@ in
     ./aliases.nix # Shell aliases
     ./programs.nix # Home Manager packages
     ./programs/nixvim.nix
+    ./programs/fpga.nix
     inputs.noctalia.homeModules.default
     ./programs/noctalia.nix
     ./modules/host-niri.nix # per-host niri settings (host.niri.*)

@@ -25,7 +25,21 @@
     #  (config.boot.kernelPackages.callPackage ./modules/rtl8812au_aircrack.nix { })
     #  config.boot.kernelPackages.rtl88xxau-aircrack
     config.boot.kernelPackages.v4l2loopback # virtual cam srcs
-    config.boot.kernelPackages.r8168
+    # nixpkgs' r8168 copies the .ko by hand, so it misses the kmodigest
+    # signature/.ko.cer the module aggregator now requires; sign before compressing
+    (config.boot.kernelPackages.r8168.overrideAttrs (old: {
+      nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.buildPackages.kmodigest ];
+      installPhase =
+        let
+          modDestDir = "$out/lib/modules/${config.boot.kernelPackages.kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/r8168";
+        in
+        ''
+          mkdir -p ${modDestDir}
+          find . -name '*.ko' -exec cp --parents '{}' ${modDestDir} \;
+          find ${modDestDir} -name '*.ko' -exec kmodigest '{}' \;
+          find ${modDestDir} -name '*.ko' -exec xz -f '{}' \;
+        '';
+    }))
   ];
   # force loading the custom driver at boot
   boot.kernelModules = [
