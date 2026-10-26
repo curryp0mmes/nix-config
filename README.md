@@ -53,6 +53,9 @@ Desktop applications that I use on a daily basis
 Shared config lives in `system/core-config.nix`, `system/desktop-config.nix` and `home/`.
 Each host opts into extra modules (e.g. `modules/gaming.nix`) in `system/hosts/<hostname>/default.nix`,
 which can also add per-host home-manager settings via `home-manager.users.simon`.
+Per-host niri settings (autostart commands, outputs/monitors, raw KDL) are set with
+`home-manager.users.simon.host.niri` (see `home/modules/host-niri.nix`); they are rendered to
+`~/.config/niri-host/host.kdl`, which the shared `config.kdl` includes last.
 
 ## System Features
 

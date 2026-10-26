@@ -9,9 +9,20 @@
   ];
 
   # host specific home-manager settings
-  # home-manager.users.simon = { pkgs, ... }: {
-  #   home.packages = with pkgs; [ ];
-  # };
+  home-manager.users.simon = {
+    # rendered to ~/.config/niri-host/host.kdl, see home/modules/host-niri.nix
+    host.niri = {
+      outputs."eDP-1" = {
+        scale = 1;
+        position = {
+          x = 0;
+          y = 0;
+        };
+        focusAtStartup = true;
+      };
+      autostart = [ "xdg-open 'obsidian://open?vault=todos-and-personal&file=TODOs%20September%202026'" ];
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

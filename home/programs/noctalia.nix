@@ -120,14 +120,14 @@
         enabled = true;
         transition_on_startup = true;
         default = {
-          path = "/home/simon/Pictures/Wallpapers/nixos_wallpaper_rainbow.png";
+          path = "/home/simon/Pictures/Wallpapers/wallpaper.jpg";
         };
         last = {
-          path = "/home/simon/Pictures/Wallpapers/nixos_wallpaper_rainbow.png";
+          path = "/home/simon/Pictures/Wallpapers/wallpaper.jpg";
         };
         monitors = {
           eDP-1 = {
-            path = "/home/simon/Pictures/Wallpapers/nixos_wallpaper_rainbow.png";
+            path = "/home/simon/Pictures/Wallpapers/wallpaper.jpg";
           };
         };
       };

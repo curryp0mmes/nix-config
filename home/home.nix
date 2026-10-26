@@ -18,6 +18,7 @@ in
     ./programs/nixvim.nix
     inputs.noctalia.homeModules.default
     ./programs/noctalia.nix
+    ./modules/host-niri.nix # per-host niri settings (host.niri.*)
   ];
 
   # Home Manager needs a bit of information about you and the paths it should

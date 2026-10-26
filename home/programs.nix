@@ -99,5 +99,24 @@ in
     playwright-mcp
     chromium
     claude-code
+    claude-agent-acp
   ];
+
+  # SolidCraft (flatpak) runs the ACP agent inside its sandbox (it needs the
+  # bundled solidcraft-cli MCP server), so expose the nix store and claude login
+  home.file.".local/share/flatpak-bin/claude-agent-acp" = {
+    executable = true;
+    text = ''
+      #!/bin/sh
+      exec ${pkgs.claude-agent-acp}/bin/claude-agent-acp "$@"
+    '';
+  };
+  xdg.dataFile."flatpak/overrides/ai.storyteller.solidcraft".text = ''
+    [Context]
+    shared=network;
+    filesystems=/nix/store:ro;~/.local/share/flatpak-bin:ro;~/.claude;~/.claude.json;
+
+    [Environment]
+    PATH=/app/bin:/usr/bin:/home/simon/.local/share/flatpak-bin
+  '';
 }
