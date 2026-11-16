@@ -39,11 +39,15 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
+  # onlyoffice-desktopeditors still depends on gtk2, which nixpkgs marks broken
+  # pending removal before NixOS 27.05 (nixpkgs#410814).
+  nixpkgs.config.problems.handlers."gtk+".broken = "warn";
   # betaflight-configurator bundles nwjs, which nixpkgs marks insecure
   # (old Chrome with known CVEs). Accepted risk for a local drone-config tool.
   nixpkgs.config.permittedInsecurePackages = [
     "nwjs-0.102.1"
   ];
+
   nixpkgs.overlays = [
     inputs.affinity-nix.overlays.default
     inputs.claude-code.overlays.default
@@ -52,6 +56,7 @@
       maven-pro = final.callPackage ./modules/maven-pro-font.nix { };
     })
   ];
+
   programs.nh = {
     enable = true;
     clean.enable = true;
@@ -59,20 +64,22 @@
   };
 
   # Enable networking
-  networking.networkmanager = {
-    enable = true;
+  networking = {
+    networkmanager = {
+      enable = true;
 
-    unmanaged = [
-      "interface-name:wlp0s20f0u*"
-      "interface-name:wlp8s0f4u*"
-    ];
-    plugins = [ pkgs.networkmanager-openconnect ];
-  };
-  networking.firewall.enable = true;
-  networking.nameservers = [
+      unmanaged = [
+        "interface-name:wlp0s20f0u*"
+        "interface-name:wlp8s0f4u*"
+      ];
+      plugins = [ pkgs.networkmanager-openconnect ];
+    };
+    firewall.enable = true;
+    nameservers = [
     "1.1.1.1"
     "8.8.8.8"
-  ];
+    ];
+  };
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -219,8 +226,6 @@
     };
   };
 
-  # ... rest of file
-
   # printing
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplipWithPlugin pkgs.samsung-unified-linux-driver ];
@@ -228,6 +233,7 @@
     enable = true; #scanner support
     extraBackends = [ pkgs.samsung-unified-linux-driver ];
   };
+
   # ipp everywhere (also for printers)
   services.avahi = {
     enable = true;

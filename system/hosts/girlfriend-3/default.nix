@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
     ../../modules/gaming.nix
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2
-    inputs.wfb-rs.nixosModules.default
+    #inputs.wfb-rs.nixosModules.default
   ];
 
   # host specific home-manager settings

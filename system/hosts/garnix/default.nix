@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/gaming.nix
+    ../../modules/nvidia.nix
     inputs.wfb-rs.nixosModules.default
   ];
 

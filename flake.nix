@@ -47,11 +47,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -68,8 +63,8 @@
     };
 
     wfb-rs = {
-      url = "github:s2outh/wfb-rs";
-      #url = "git+file:///home/simon/Code/rust/wfb_rs";
+      #url = "github:s2outh/wfb-rs";
+      url = "git+file:///home/simon/Code/rust/wfb_rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
