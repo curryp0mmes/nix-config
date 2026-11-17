@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ../../modules/gaming.nix
     ../../modules/nvidia.nix
+    ../../modules/easyroam.nix
     inputs.wfb-rs.nixosModules.default
   ];
 

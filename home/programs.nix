@@ -13,6 +13,22 @@ let
   playwright-mcp =pkgs.writeShellScriptBin "playwright-mcp" ''
     exec ${pkgs.nodejs_24}/bin/npx -y @playwright/mcp@latest --executable-path ${pkgs.chromium}/bin/chromium "$@"
   '';
+
+  # gqrx hangs before showing a window: libgnuradio-network exports weak boost.asio
+  # epoll_reactor symbols that clash with libuhd's inlined copies (boost 1.91),
+  # deadlocking UHD device discovery. Loading libuhd first avoids the mixup.
+  gqrx = pkgs.gqrx.overrideAttrs (old: {
+    qtWrapperArgs = (old.qtWrapperArgs or [ ]) ++ [
+      "--prefix LD_PRELOAD : ${pkgs.gnuradioMinimal.unwrapped.uhd}/lib/libuhd.so"
+    ];
+  });
+
+  jlcone = pkgs.callPackage ./programs/jlcone.nix { };
+
+  # zstd-sys probes pkg-config for libzstd, but nixpkgs doesn't provide it
+  ripunzip = pkgs.ripunzip.overrideAttrs (old: {
+    buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.zstd ];
+  });
 in
 {
   home.packages = with pkgs; [
@@ -31,11 +47,13 @@ in
     thunderbird
     simple-scan
     sdrangel
+    gqrx
     stablePkgs.freecad
     orca-slicer
     #kdePackages.kdenlive
     discord
     kicad
+    jlcone
     kdePackages.okular
     # gimp-with-plugins
     gimp

@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/gaming.nix
+    ../../modules/easyroam.nix
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2
     #inputs.wfb-rs.nixosModules.default
   ];

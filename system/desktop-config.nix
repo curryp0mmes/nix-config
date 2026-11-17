@@ -7,8 +7,8 @@
   imports = [
     ./modules/virtualisation.nix
     ./modules/udev.nix
+    ./modules/limesdr
     ./modules/firewall.nix
-    ./modules/easyroam.nix
     ./modules/vm.nix
     ./modules/niri.nix
     ./modules/keyring.nix
